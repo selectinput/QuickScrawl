@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>QuickScrawl</title>
+<meta name="description" content="QuickScrawl — a boiling-line oekaki toy. Draw with crayons whose lines wiggle like Saturday-morning animation, then export GIFs, WebM, or PNGs. A System 7-flavoured drawing app that runs entirely in your browser.">
+<meta name="theme-color" content="#cccccc">
+<meta property="og:title" content="QuickScrawl">
+<meta property="og:description" content="A boiling-line oekaki toy. Draw wiggly crayon art and export animated GIFs — runs entirely in your browser.">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'%3E%3Crect width='16' height='16' fill='%23ffffff'/%3E%3Cpath fill='%23000' d='M7 1h2v1h1v1h1v2H5V3h1V2h1V1zM5 5h6v1H5V5zm0 2h6v1H5V7zm0 2h6v5H5V9z'/%3E%3Cpath fill='%23e8472b' d='M6 10h1v3H6v-3z'/%3E%3C/svg%3E">
+<style>
+  @font-face {
+    font-family: "ChicagoFLF";
+    src: url("data:font/woff2;base64,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") format("woff2");
+    font-display: swap;
+  }
+      
+  :root {
+    --ink: #000;
+    --paper: #ffffff;
+    --gray: #cccccc;          
+    --gray-d: #888888;        
+    --gray-l: #eeeeee;        
+    --desk: #999999;          
+    --accent: #000099;        
+    --hl: #000080;            
+    --pinstripe: repeating-linear-gradient(
+      to bottom, #000 0 1px, transparent 1px 2px);
+    --shadow: none;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; height: 100%; overscroll-behavior: none; }
+  body {
+    font-family: "ChicagoFLF", "Charcoal", Geneva, "Helvetica Neue", sans-serif;
+    font-size: 16px; line-height: 1.1; color: var(--ink);
+    
+    background-color: #aaaaaa;
+    
+    background-image:
+      linear-gradient(45deg, #888 25%, transparent 25%, transparent 75%, #888 75%),
+      linear-gradient(45deg, #888 25%, transparent 25%, transparent 75%, #888 75%);
+    background-size: 2px 2px;
+    background-position: 0 0, 1px 1px;
+    image-rendering: pixelated;
+    display: flex; flex-direction: column;
+    user-select: none; -webkit-user-select: none;
+    cursor: default;
+  }
+
+  .menubar {
+    background: var(--paper);
+    border-bottom: 1px solid var(--ink);
+    display: flex; align-items: stretch;
+    height: 40px; padding: 0 6px;
+    position: relative; z-index: 50;
+  }
+  .menu, .apptitle {
+    display: flex; align-items: center;
+    padding: 0 6px; position: relative; cursor: default;
+  }
+  .apptitle { font-weight: bold; font-size: 17px; padding: 0 14px 0 8px; }
+  .menulabel {
+    padding: 6px 11px; font-size: 17px; line-height: 1;
+    display: flex; align-items: center; height: 100%;
+  }
+  .menu.open > .menulabel { background: var(--ink); color: var(--paper); }
+  .menulist {
+    display: none; position: absolute; top: 100%; left: 0;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    
+    box-shadow: 1px 1px 0 0 #000, 2px 2px 0 0 #000;
+    min-width: 260px; padding: 0; z-index: 60;
+  }
+  .menu.open .menulist { display: block; }
+  .menuitem {
+    padding: 9px 24px 9px 28px; white-space: nowrap; font-size: 16px;
+    position: relative; line-height: 1;
+  }
+  .menuitem:hover { background: var(--hl); color: var(--paper); }
+  .menuitem.disabled { color: var(--gray-d); pointer-events: none; }
+  .menuitem small { color: inherit; opacity: .7; font-size: 13px; margin-left: 10px; }
+  .menusep { height: 1px; background: var(--ink); margin: 4px 0; opacity: .35; }
+  .menucheck { position: absolute; left: 9px; display: inline-block; width: 14px; font-size: 14px; }
+  .menucheck.on::before {
+    content: ""; display: inline-block; width: 11px; height: 9px;
+    background: currentColor;
+    -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 9" shape-rendering="crispEdges"><path fill="black" d="M0 4h1v1h1v1h1v1h1V6h1V5h1V4h1V3h1V2h1V0h1v3h-1v1h-1v1h-1v1h-1v1H4v1H3V8H2V7H1V6H0V4z"/></svg>') no-repeat center / contain;
+    mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 9" shape-rendering="crispEdges"><path fill="black" d="M0 4h1v1h1v1h1v1h1V6h1V5h1V4h1V3h1V2h1V0h1v3h-1v1h-1v1h-1v1h-1v1H4v1H3V8H2V7H1V6H0V4z"/></svg>') no-repeat center / contain;
+  }
+  .clock {
+    margin-left: auto; display: flex; align-items: center; padding: 0 12px;
+    font-size: 16px; border-left: 1px solid var(--ink);
+  }
+  .fsbtn {
+    align-self: center; margin-left: auto;
+    min-height: 30px; height: 30px; padding: 0 12px;
+    font-size: 17px; line-height: 1; border-radius: 0;
+  }
+  .fsbtn + .clock { margin-left: 8px; }
+  body.fullscreen .desktop { padding: 8px; gap: 8px; }
+  body.kiosk { -webkit-touch-callout: none; }
+
+  body.zen .menubar, body.zen .sidecol { display: none; }
+  body.zen .desktop { padding: 0; }
+  body.zen .canvaswin {
+    position: fixed; inset: 0; z-index: 40;
+    border: none;
+  }
+  body.zen .canvaswin .titlebar { display: none; }
+  body.zen .canvaswrap { padding: 0; }
+  body.zen canvas#pad { border: none; }
+
+  .desktop {
+    flex: 1; display: flex; gap: 12px; align-items: flex-start;
+    padding: 12px; min-height: 0; overflow: auto;
+  }
+  .window {
+    background: var(--gray);
+    border: 1px solid var(--ink);
+    box-shadow: 1px 1px 0 0 #000, 2px 2px 0 0 #000;
+    display: flex; flex-direction: column;
+  }
+  
+  .titlebar {
+    position: relative; height: 20px;
+    border-bottom: 1px solid var(--ink);
+    background:
+      repeating-linear-gradient(to bottom,
+        #000 0, #000 1px,
+        var(--gray) 1px, var(--gray) 3px);
+    background-position: 0 3px;
+    background-repeat: repeat-x;
+    flex: none;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .titlebar .title {
+    position: relative; z-index: 2;
+    background: var(--gray); padding: 0 10px;
+    white-space: nowrap; font-size: 15px; line-height: 1;
+    max-width: 70%; overflow: hidden; text-overflow: ellipsis;
+  }
+  
+  .closebox {
+    position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+    width: 13px; height: 13px; z-index: 3;
+    background: var(--gray);
+    border: 1px solid var(--ink);
+    box-shadow: inset 0 0 0 1px var(--gray), inset 0 0 0 2px var(--ink);
+    cursor: pointer;
+  }
+  .closebox:active {
+    box-shadow: inset 0 0 0 1px var(--gray), inset 0 0 0 2px var(--ink),
+                inset 0 0 0 4px var(--gray), inset 0 0 0 5px var(--ink);
+  }
+  .winbody { padding: 12px; display: flex; flex-direction: column; gap: 11px; }
+
+  .sidecol { display: flex; flex-direction: column; gap: 12px; width: 300px; flex: none; }
+
+  button, label.btn {
+    font: inherit; font-size: 16px; color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 10px;
+    padding: 9px 16px; min-height: 44px;
+    cursor: pointer; touch-action: manipulation;
+    display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.55), 1px 0 0 0 rgba(0,0,0,.2);
+  }
+  button:active { background: var(--ink); color: var(--paper); box-shadow: none; }
+  button:disabled { color: var(--gray-d); border-color: var(--gray-d); box-shadow: none; }
+  button:disabled img, button:disabled .ico { opacity: .4; }
+  button:focus-visible, select:focus-visible, input:focus-visible {
+    outline: 2px solid var(--ink); outline-offset: 2px;
+  }
+  .toolrow { display: flex; gap: 8px; flex-wrap: wrap; }
+  .tool {
+    width: 64px; min-height: 60px; padding: 5px 3px 4px;
+    border-radius: 8px;
+    display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 3px;
+  }
+  .tool .tlab { font-size: 11px; line-height: 1; letter-spacing: .2px; }
+  .tool.active { background: var(--ink); color: var(--paper); }
+  .ctl { display: flex; align-items: center; gap: 9px; }
+  .ctl .lab { width: 78px; flex: none; font-size: 15px; }
+
+  select {
+    appearance: none; -webkit-appearance: none;
+    font: inherit; font-size: 16px; color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    box-shadow: 1px 1px 0 0 #000;
+    border-radius: 0;
+    padding: 8px 38px 8px 12px; min-height: 44px;
+    flex: 1; cursor: pointer;
+    background-image:
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11 7"><path d="M0 0 H11 L5.5 7 Z" fill="black"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 12px 8px;
+  }
+  .check { display: flex; align-items: center; gap: 11px; cursor: pointer; font-size: 15px; min-height: 40px; }
+  
+  .check input {
+    appearance: none; -webkit-appearance: none;
+    width: 24px; height: 24px; flex: none;
+    background: var(--paper);
+    border: 1px solid var(--ink);
+    border-radius: 0; cursor: pointer;
+  }
+  .check input:checked {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2 2 L14 14 M14 2 L2 14" stroke="black" stroke-width="2.4" stroke-linecap="butt"/></svg>');
+    background-size: 100% 100%; background-position: center; background-repeat: no-repeat;
+  }
+  .hint { font-size: 13px; opacity: .7; line-height: 1.5; }
+
+  .ctl input[type=range] {
+    flex: 1; min-width: 0; height: 40px; cursor: pointer;
+    -webkit-appearance: none; appearance: none; background: transparent;
+  }
+  .ctl input[type=range]::-webkit-slider-runnable-track {
+    height: 6px; background: var(--paper);
+    border: 1px solid var(--ink);
+  }
+  .ctl input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 18px; height: 26px;
+    background: var(--gray);
+    border: 1px solid var(--ink);
+    box-shadow: inset 1px 1px 0 0 var(--gray-l), inset -1px -1px 0 0 var(--gray-d);
+    margin-top: -11px; border-radius: 0;
+  }
+  .ctl input[type=range]::-moz-range-track {
+    height: 6px; background: var(--paper); border: 1px solid var(--ink);
+  }
+  .ctl input[type=range]::-moz-range-thumb {
+    width: 16px; height: 24px; background: var(--gray);
+    border: 1px solid var(--ink); border-radius: 0;
+    box-shadow: inset 1px 1px 0 0 var(--gray-l), inset -1px -1px 0 0 var(--gray-d);
+  }
+
+  .swatches {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: 0;
+    border: 1px solid var(--ink);
+    box-shadow: inset 1px 1px 0 0 var(--gray-d), inset -1px -1px 0 0 var(--gray-l);
+    background: var(--ink);
+    padding: 1px;
+  }
+  .swatch {
+    width: 100%; aspect-ratio: 1 / 1; min-height: 0; padding: 0;
+    border: none; border-radius: 0;
+    margin: 0; box-shadow: none;
+    position: relative; cursor: pointer;
+    outline: 1px solid var(--ink); outline-offset: -1px;
+  }
+  .swatch::after {
+    content: ""; position: absolute; inset: 0;
+    box-shadow: inset 0 0 0 0 var(--ink);
+    pointer-events: none;
+  }
+  .swatch.active { z-index: 2; }
+  .swatch.active::after {
+    box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 4px var(--ink);
+  }
+  
+  .swatch.active[data-light="1"]::after {
+    box-shadow: inset 0 0 0 3px var(--ink), inset 0 0 0 4px #fff;
+  }
+  
+  .wells { display: flex; gap: 14px; align-items: flex-end; }
+  .well { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .well .hint { font-size: 12px; }
+  input[type=color] {
+    width: 46px; height: 38px; padding: 0;
+    border: 1px solid var(--ink); border-radius: 0;
+    box-shadow: inset 1px 1px 0 0 var(--gray-d), inset -1px -1px 0 0 var(--gray-l);
+    background: var(--gray); cursor: pointer;
+  }
+  input[type=color]::-webkit-color-swatch-wrapper { padding: 3px; }
+  input[type=color]::-webkit-color-swatch { border: 1px solid var(--ink); }
+  input[type=color]::-moz-color-swatch { border: 1px solid var(--ink); }
+
+  .canvaswin { flex: 1; min-width: 0; max-width: 100%; align-self: stretch; }
+  .canvaswrap {
+    padding: 0; flex: 1; min-height: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--gray);
+    
+    border-top: 1px solid var(--gray-d);
+  }
+  canvas#pad {
+    touch-action: none;
+    border: 1px solid var(--ink);
+    cursor: crosshair;
+    background: #fff;
+    display: block;
+    box-shadow: inset 1px 1px 0 0 var(--gray-d);
+  }
+  body.picking canvas#pad { cursor: crosshair; }
+  body.filling canvas#pad { cursor: crosshair; }
+
+  .quickbar { display: none; }
+
+  .palpop {
+    display: none; position: fixed; left: 50%; bottom: 24px;
+    transform: translateX(-50%); z-index: 75;
+    width: 400px; max-width: calc(100vw - 20px);
+    background: var(--gray);
+  }
+  .palpop.show { display: flex; flex-direction: column; }
+
+  .status {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%);
+    background: var(--paper); border: 1px solid var(--ink);
+    box-shadow: 1px 1px 0 0 #000, 2px 2px 0 0 #000;
+    padding: 12px 20px; font-size: 15px; display: none; z-index: 80; border-radius: 0;
+  }
+  .dialog-backdrop {
+    position: fixed; inset: 0;
+    background: transparent;
+    display: none; align-items: center; justify-content: center; z-index: 90;
+  }
+  .dialog-backdrop.show { display: flex; }
+  
+  .dialog {
+    background: var(--gray);
+    border: 2px solid var(--ink);
+    box-shadow: 2px 2px 0 0 #000, 3px 3px 0 0 #000, 0 0 0 1px var(--paper) inset;
+    max-width: 460px; margin: 16px; padding: 20px 22px;
+    display: flex; gap: 18px;
+  }
+  .dialog .icon { font-size: 40px; flex: none; }
+  .dialog p { margin: 0 0 11px; line-height: 1.5; font-size: 14px; }
+  
+  .dialog button {
+    min-width: 96px;
+    border: 1px solid var(--ink); border-radius: 10px;
+    box-shadow: 0 0 0 2px var(--gray), 0 0 0 4px var(--ink),
+                0 1px 0 0 rgba(0,0,0,.5);
+    margin: 6px 4px 4px;
+  }
+
+  @media (max-width: 920px) {
+    .desktop { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
+    .sidecol { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 10px; }
+    .sidecol .window { flex: 1; min-width: 260px; }
+    .canvaswin { flex: 1; min-height: 56vh; order: 2; }
+    .sidecol { order: 1; }
+    .apptitle { display: none; }
+  }
+
+  @media (max-width: 920px) and (orientation: portrait) {
+    .canvaswin { min-height: 60vh; }
+    .sidecol { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .sidecol .window { min-width: 280px; flex: 0 0 auto; }
+  }
+
+  @media (max-width: 640px) {
+    body { font-size: 15px; height: 100vh; height: 100dvh; overflow: hidden; }
+    .menubar { height: 36px; padding: 0 2px; flex: none; }
+    .menulabel { padding: 6px 8px; font-size: 15px; }
+    .apptitle { display: none; }
+    .clock { display: none; }
+    .menuitem { padding: 13px 22px; font-size: 16px; }
+
+    .desktop { padding: 0; gap: 0; flex-direction: column; overflow: hidden; min-height: 0; }
+
+    .canvaswin { order: 0; flex: 1 1 auto; min-height: 0; border: none; display: flex; flex-direction: column; }
+    .canvaswin .titlebar { height: 22px; flex: none; }
+    .canvaswrap { padding: 4px; background: var(--gray); flex: 1 1 auto; min-height: 0; }
+    canvas#pad { box-shadow: none; }
+
+    .sidecol {
+      order: 1; width: 100%; flex: none;
+      flex-direction: column; gap: 0; overflow: visible;
+    }
+    .sidecol .window { display: none; }
+    .quickbar { display: flex; }
+
+    .palpop { left: 0; right: 0; bottom: 70px; transform: none; width: auto; margin: 0 6px; }
+    .palpop.show { display: flex; }
+  }
+
+  @media (max-width: 640px) {
+    .quickbar {
+      width: 100%; flex: none;
+      align-items: center; gap: 6px;
+      background: var(--gray);
+      border-top: 1px solid var(--ink);
+      padding: 8px 6px; flex-wrap: nowrap; overflow-x: auto;
+    }
+    .quickbar .seg { flex: 0 0 auto; }
+    .quickbar button { min-height: 48px; min-width: 48px; flex: 0 0 auto; padding: 6px; }
+    .quickbar #qMore { font-size: 18px; letter-spacing: 1px; }
+    .quickbar .qswatch {
+      width: 40px; height: 40px; flex: 0 0 auto; padding: 0; min-height: 40px;
+      border: 1px solid var(--ink); border-radius: 0;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.35);
+    }
+    .quickbar .qswatch.active { box-shadow: inset 0 0 0 2px #fff, inset 0 0 0 3px var(--ink); }
+    .quickbar .qspacer { flex: 0 0 6px; }
+  }
+
+  .ico { display: inline-block; vertical-align: middle; line-height: 0; }
+  .ico svg { display: block; width: 100%; height: 100%; }
+  .menulabel .ico { width: 22px; height: 22px; }
+  .seg .ico { width: 22px; height: 22px; }
+  .tool .ico { width: 30px; height: 30px; }
+  .fsbtn .ico { width: 18px; height: 18px; }
+  .dialog .icon .ico { width: 40px; height: 40px; }
+  
+  button:active .ico svg path, button:active .ico svg rect,
+  .tool.active .ico svg path, .tool.active .ico svg rect,
+  .seg button.active .ico svg path, .seg button.active .ico svg rect {
+    fill: #fff;
+  }
+</style>
+</head>
+<body>
+
+<nav class="menubar" id="menubar">
+  <div class="menu" data-menu>
+    <div class="menulabel" data-applemenu><span class="ico" data-ico="crayon"></span></div>
+    <div class="menulist">
+      <div class="menuitem" data-cmd="about">About QuickScrawl…</div>
+    </div>
+  </div>
+  <div class="apptitle">QuickScrawl</div>
+  <div class="menu" data-menu>
+    <div class="menulabel">File</div>
+    <div class="menulist">
+      <div class="menuitem" data-cmd="new">New Project</div>
+      <div class="menuitem" data-cmd="open">Open Project…</div>
+      <div class="menuitem" data-cmd="save">Save Project</div>
+      <div class="menusep"></div>
+      <div class="menuitem" data-cmd="png">Export PNG</div>
+      <div class="menuitem" data-cmd="gif">Export Animated GIF</div>
+      <div class="menuitem" data-cmd="webm">Export WebM Movie</div>
+      <div class="menusep"></div>
+      <div class="menuitem" data-cmd="batch">Batch: Projects → GIFs…</div>
+    </div>
+  </div>
+  <div class="menu" data-menu>
+    <div class="menulabel">View</div>
+    <div class="menulist">
+      <div class="menuitem" data-cmd="fullscreen"><span id="fsLabel">Enter Full Screen</span></div>
+      <div class="menuitem" data-cmd="zen">Whole-Screen Paper <small>(F)</small></div>
+    </div>
+  </div>
+  <button class="fsbtn" id="fsBtn" title="Full screen (Ctrl+Shift+F)" aria-label="Toggle full screen"><span class="ico" data-ico="fsenter"></span></button>
+  <div class="clock" id="clock"></div>
+</nav>
+
+<div class="desktop">
+  <div class="sidecol">
+    
+    <div class="window">
+      <div class="titlebar"><span class="title">Tools</span></div>
+      <div class="winbody">
+        <div class="toolrow">
+            <button id="penBtn" class="tool active" title="Crayon"><span class="ico" data-ico="pencil"></span><span class="tlab">Crayon</span></button>
+            <button id="eraserBtn" class="tool" title="Eraser"><span class="ico" data-ico="eraser"></span><span class="tlab">Eraser</span></button>
+            <button id="bucketBtn" class="tool" title="Fill enclosed area"><span class="ico" data-ico="bucket"></span><span class="tlab">Fill</span></button>
+            <button id="dropperBtn" class="tool" title="Pick color (eyedropper)"><span class="ico" data-ico="dropper"></span><span class="tlab">Pick</span></button>
+            <button id="undoBtn" class="tool" title="Undo (Ctrl+Z)"><span class="ico" data-ico="undo"></span><span class="tlab">Undo</span></button>
+            <button id="redoBtn" class="tool" title="Redo (Ctrl+Y)"><span class="ico" data-ico="redo"></span><span class="tlab">Redo</span></button>
+          </div>
+          <div class="ctl"><span class="lab">Size</span><input type="range" id="sizeRange" min="1" max="40" step="1" value="6"></div>
+          <div class="ctl"><span class="lab">Wiggle</span><input type="range" id="ampRange" min="0" max="6" step="0.5" value="2"></div>
+          <div class="ctl"><span class="lab">Speed</span><input type="range" id="fpsRange" min="2" max="15" step="1" value="8"></div>
+          <div class="ctl"><span class="lab">Frames</span>
+            <select id="framesSel"><option>2</option><option selected>3</option><option>4</option></select>
+          </div>
+          <label class="check"><input type="checkbox" id="boilOn" checked> Boil the lines</label>
+          <label class="check"><input type="checkbox" id="texOn" checked> Crayon texture</label>
+          <label class="check"><input type="checkbox" id="transOn"> Transparent export</label>
+          <div class="ctl"><span class="lab">Canvas</span>
+            <select id="sizeSel">
+              <option value="640x480">640 × 480</option>
+              <option value="800x600" selected>800 × 600</option>
+              <option value="800x800">800 × 800</option>
+              <option value="1024x768">1024 × 768</option>
+              <option value="1280x720">1280 × 720</option>
+            </select>
+          </div>
+      </div>
+    </div>
+
+    <div class="window">
+      <div class="titlebar"><span class="title">Crayons</span></div>
+      <div class="winbody">
+        <div class="swatches" id="swatches"></div>
+        <div class="wells">
+          <div class="well">
+            <input type="color" id="colorPick" value="#1a1a1a" title="Custom color">
+            <span class="hint">custom</span>
+          </div>
+          <div class="well">
+            <input type="color" id="bgPick" value="#ffffff" title="Paper color">
+            <span class="hint">paper</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quickbar" id="quickBar">
+      <button id="qPen" class="tool active" title="Crayon"><span class="ico" data-ico="pencil"></span></button>
+      <button id="qEraser" class="tool" title="Eraser"><span class="ico" data-ico="eraser"></span></button>
+      <button id="qBucket" class="tool" title="Fill"><span class="ico" data-ico="bucket"></span></button>
+      <button id="qDropper" class="tool" title="Pick color"><span class="ico" data-ico="dropper"></span></button>
+      <button id="qUndo" class="tool" title="Undo"><span class="ico" data-ico="undo"></span></button>
+      <button id="qRedo" class="tool" title="Redo"><span class="ico" data-ico="redo"></span></button>
+      <span class="qspacer"></span>
+      <div id="qSwatches" style="display:flex;gap:6px;"></div>
+      <button id="qMore" title="More crayons &amp; size">•••</button>
+    </div>
+  </div>
+
+  <div class="window canvaswin">
+    <div class="titlebar">
+      <div class="closebox" id="closeBox" title="New doodle"></div>
+      <span class="title" id="canvasTitle">untitled — 800 × 600</span>
+    </div>
+    <div class="canvaswrap">
+      <canvas id="pad" width="800" height="600"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="palpop window" id="palPop">
+  <div class="titlebar"><span class="title">Crayons &amp; Size</span></div>
+  <div class="winbody">
+    <div class="swatches" id="popSwatches"></div>
+    <div class="ctl">
+      <input type="color" id="popColor" value="#1a1a1a" title="Custom color">
+      <span class="lab" style="width:auto;">Size</span>
+      <input type="range" id="popSize" min="1" max="40" step="1" value="6">
+    </div>
+  </div>
+</div>
+<div class="status" id="status"></div>
+
+<div class="dialog-backdrop" id="aboutDlg">
+  <div class="dialog">
+    <div class="icon"><span class="ico" data-ico="crayon"></span></div>
+    <div>
+      <p><b>QuickScrawl</b> — a boiling-line oekaki toy.</p>
+      <button id="aboutOk">OK</button>
+    </div>
+  </div>
+</div>
+
+<div class="dialog-backdrop" id="batchDlg">
+  <div class="dialog" style="max-width:520px;">
+    <div class="icon"><span class="ico" data-ico="bucket"></span></div>
+    <div style="flex:1;min-width:0;">
+      <p><b>Batch: Projects → GIFs</b></p>
+      <p>Pick one or more QuickScrawl <b>.json</b> project files. Each is loaded and exported as an animated <b>.gif</b> using that project's own boil settings. Files download one at a time.</p>
+      <div style="display:flex;gap:10px;align-items:center;margin:6px 0 12px;">
+        <button id="batchPick">Choose .json files…</button>
+        <span id="batchCount" class="hint">no files chosen</span>
+      </div>
+      <div id="batchProgress" class="hint" style="display:none;margin-bottom:10px;white-space:pre-line;max-height:160px;overflow:auto;"></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;">
+        <button id="batchClose">Close</button>
+        <button id="batchRun" disabled>Export all</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<input type="file" id="fileInput" accept=".json,application/json" hidden>
+<input type="file" id="batchInput" accept=".json,application/json" multiple hidden>
+
+<script>
+"use strict";
+
+const ICONS = {
+  pencil: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M10 2h3v3h-1v1h-1v1h-1V6H9V5H8v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1h1v-1h1v-1h1V8h1V7h1V6h1V5h1V4h1V3h1V2zm0 2v1h1V4h-1z"/><path fill="#000" d="M2 12h2v1H2v-1zm0 1H1v1h2v-1H2z"/></svg>',
+  eraser: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M3 9h8l3-3-4-4-8 8v3h3V9zm0 3H2v-1h1v1zm1-1h6l1-1H5l-1 1z"/></svg>',
+  dropper: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M10 1h3v3h-1v1h-1v1h-1v1H9v1H8v1H7v1H6v1H5v1H4v1H2v1H1v-2h1v-1h1v-1h1v-1h1V8h1V7h1V6h1V5h1V4h-1V3h1V2h1V1zM4 12v1H3v-1h1z"/></svg>',
+  bucket: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M6 2h1v1h1v1h1v1h1v1h1v1h-1v1h-1v1h-1v1H7v1H6v-1H5v-1H4V9H3V8H2V7h1V6h1V5h1V4h1V3H6V2zM5 7h1v1h2V7h1V6H8V5H7v1H6v1H5z"/><path fill="#000" d="M11 8h1v1h1v1h1v2h-1v1h-2v-1h-1v-2h1V9h-1V8h1zm0 3h1v-1h-1v1z"/></svg>',
+  undo: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M5 3v2H4V4H3v1H2v1H1v1h1v1h1v1h1V8H3V7h7v1h1v2h1v1h1V9h-1V7h-1V6h-1V5H4z"/></svg>',
+  redo: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><g transform="translate(16,0) scale(-1,1)"><path fill="#000" d="M5 3v2H4V4H3v1H2v1H1v1h1v1h1v1h1V8H3V7h7v1h1v2h1v1h1V9h-1V7h-1V6h-1V5H4z"/></g></svg>',
+  crayon: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M7 1h2v1h1v1h1v2H5V3h1V2h1V1zM5 5h6v1H5V5zm0 2h6v1H5V7zm0 2h6v5H5V9z"/><path fill="#fff" d="M6 10h1v3H6v-3z"/></svg>',
+  fsenter: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M1 1h6v1H2v5H1V1zm14 0v6h-1V2H9V1h6zM1 9h1v5h5v1H1V9zm13 0h1v6H9v-1h5V9z"/></svg>',
+  fsexit: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M2 2h1v4h4v1H2V2zm12 0v5H9V6h4V2h1zM7 9v5H6v-4H2V9h5zm7 0v1h-4v4H9V9h5z"/></svg>'
+};
+
+function icoSpan(name) {
+  return `<span class="ico" data-ico="${name}">${ICONS[name] || ""}</span>`;
+}
+
+function paintIcons(root) {
+  (root || document).querySelectorAll("[data-ico]").forEach(el => {
+    const n = el.getAttribute("data-ico");
+    if (ICONS[n] && !el.firstChild) el.innerHTML = ICONS[n];
+  });
+}
+
+const state = {
+  w: 800,
+  h: 600,
+  bg: "#ffffff",
+  strokes: [],
+  boil: {
+    on: true,
+    amp: 2,
+    frames: 3,
+    fps: 8
+  },
+  texture: true,
+  transparent: false
+};
+
+let history = [ [] ], histPos = 0;
+
+let tool = "pen", color = "#1a1a1a", size = 6;
+
+let current = null, drawingPointer = null;
+
+let frameIdx = 0, lastTick = 0;
+
+let layerDirty = true, composeDirty = true;
+
+let exporting = false;
+
+let strokeIdSeq = 1;
+
+const pad = document.getElementById("pad");
+
+const ctx = pad.getContext("2d");
+
+const layer = document.createElement("canvas");
+
+const lctx = layer.getContext("2d");
+
+layer.width = state.w;
+
+layer.height = state.h;
+
+function rnd(seed) {
+  let t = (seed | 0) + 1831565813;
+  t = Math.imul(t ^ t >>> 15, t | 1);
+  t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+  return ((t ^ t >>> 14) >>> 0) / 4294967296;
+}
+
+function noise1d(seed, x) {
+  const i = Math.floor(x), fr = x - i;
+  const a = rnd(seed + i * 131), b = rnd(seed + (i + 1) * 131);
+  const u = fr * fr * (3 - 2 * fr);
+  return a + (b - a) * u;
+}
+
+function jitterPoint(strokeId, ptIdx, frame, amp, out) {
+  const base = strokeId * 7919 + frame * 104729;
+  const t = ptIdx / 3.5;
+  out[0] = (noise1d(base + 1, t) - .5) * 2 * amp;
+  out[1] = (noise1d(base + 2, t) - .5) * 2 * amp;
+}
+
+function strokePass(c, s, frame, amp, widthMul, alpha, seedOff) {
+  const pts = s.pts, n = pts.length / 3;
+  if (n === 0) return;
+  c.globalAlpha = alpha;
+  c.globalCompositeOperation = s.eraser ? "destination-out" : "source-over";
+  c.strokeStyle = s.color;
+  c.fillStyle = s.color;
+  c.lineCap = "round";
+  c.lineJoin = "round";
+  const j = [ 0, 0 ];
+  if (n === 1) {
+    jitterPoint(s.id + seedOff, 0, frame, amp, j);
+    c.beginPath();
+    c.arc(pts[0] + j[0], pts[1] + j[1], Math.max(.5, s.size * widthMul * (.35 + .65 * pts[2]) / 2), 0, Math.PI * 2);
+    c.fill();
+    return;
+  }
+  let px = 0, py = 0;
+  for (let i = 0; i < n; i++) {
+    jitterPoint(s.id + seedOff, i, frame, amp, j);
+    const x = pts[i * 3] + j[0], y = pts[i * 3 + 1] + j[1], p = pts[i * 3 + 2];
+    if (i > 0) {
+      const pp = pts[(i - 1) * 3 + 2];
+      c.lineWidth = Math.max(.6, s.size * widthMul * (.35 + .65 * (p + pp) / 2));
+      c.beginPath();
+      c.moveTo(px, py);
+      c.lineTo(x, y);
+      c.stroke();
+    }
+    px = x;
+    py = y;
+  }
+}
+
+const fillImgCache = new Map;
+
+function getFillImg(s) {
+  let img = fillImgCache.get(s.id);
+  if (img) return img;
+  img = new Image;
+  img.onload = () => {
+    layerDirty = true;
+  };
+  img.src = s.mask;
+  fillImgCache.set(s.id, img);
+  return img;
+}
+
+function decodeFillMasks(strokes) {
+  const pending = [];
+  for (const s of strokes) {
+    if (s.type !== "fill" || !s.mask) continue;
+    let img = fillImgCache.get(s.id);
+    if (img && img.complete && img.naturalWidth) continue;
+    img = new Image;
+    fillImgCache.set(s.id, img);
+    pending.push(new Promise(res => {
+      img.onload = img.onerror = () => res();
+      img.src = s.mask;
+    }));
+  }
+  return Promise.all(pending);
+}
+
+function drawFill(c, s, frame, amp) {
+  if (!s.mask) return;
+  let img = fillImgCache.get(s.id);
+  if (!img) img = getFillImg(s);
+  if (!img.complete || !img.naturalWidth) return;
+  let dx = 0, dy = 0;
+  if (amp > 0) {
+    const j = [ 0, 0 ];
+    jitterPoint(s.id, 0, frame, Math.min(amp, 2), j);
+    dx = Math.round(j[0]);
+    dy = Math.round(j[1]);
+  }
+  c.globalAlpha = 1;
+  c.globalCompositeOperation = "source-over";
+  c.drawImage(img, dx, dy);
+}
+
+function drawStroke(c, s, frame, amp, texture) {
+  if (s.type === "fill") {
+    drawFill(c, s, frame, s.eraser ? 0 : amp);
+    c.globalAlpha = 1;
+    return;
+  }
+  const tex = texture === undefined ? state.texture : texture;
+  strokePass(c, s, frame, s.eraser ? 0 : amp, 1, 1, 0);
+  if (tex && !s.eraser && s.size >= 3) {
+    strokePass(c, s, frame, (amp || 1) * 1.4, .55, .4, 5e3);
+  }
+  c.globalAlpha = 1;
+}
+
+function rebuildLayer(frame) {
+  const amp = state.boil.on ? state.boil.amp : 0;
+  lctx.clearRect(0, 0, state.w, state.h);
+  for (const s of state.strokes) drawStroke(lctx, s, frame, amp);
+  if (current) drawStroke(lctx, current, frame, amp);
+  lctx.globalCompositeOperation = "source-over";
+}
+
+function compose(targetCtx, withOverlay) {
+  targetCtx.fillStyle = state.bg;
+  targetCtx.fillRect(0, 0, state.w, state.h);
+  targetCtx.drawImage(layer, 0, 0);
+}
+
+let lastTs = 0;
+
+function loop(ts) {
+  const dt = Math.min(.05, (ts - lastTs) / 1e3 || .016);
+  lastTs = ts;
+  const b = state.boil;
+  if (b.on && ts - lastTick >= 1e3 / b.fps) {
+    lastTick = ts;
+    frameIdx = (frameIdx + 1) % b.frames;
+    layerDirty = true;
+  }
+  kioskIdleCheck();
+  if (layerDirty) {
+    rebuildLayer(frameIdx);
+    layerDirty = false;
+    composeDirty = true;
+  }
+  if (composeDirty) {
+    if (!exporting) compose(ctx, true);
+    composeDirty = false;
+  }
+  requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+
+function toCanvas(e) {
+  const r = pad.getBoundingClientRect();
+  const cw = pad.clientWidth || r.width - 6, ch = pad.clientHeight || r.height - 6;
+  return [ (e.clientX - r.left - pad.clientLeft) * (pad.width / cw), (e.clientY - r.top - pad.clientTop) * (pad.height / ch) ];
+}
+
+const canvasWrap = document.querySelector(".canvaswrap");
+
+let zenOn = false, zenTookFullscreen = false;
+
+function fitCanvas() {
+  if (document.body.classList.contains("zen")) {
+    pad.style.width = canvasWrap.clientWidth + "px";
+    pad.style.height = canvasWrap.clientHeight + "px";
+    return;
+  }
+  const availW = canvasWrap.clientWidth - 26;
+  const availH = canvasWrap.clientHeight - 26;
+  if (availW < 40 || availH < 40) return;
+  const scale = Math.min(availW / state.w, availH / state.h);
+  pad.style.width = Math.max(60, Math.floor(state.w * scale)) + "px";
+  pad.style.height = Math.max(45, Math.floor(state.h * scale)) + "px";
+}
+
+function onWrapResize() {
+  if (zenOn) syncZenSize(); else fitCanvas();
+}
+
+if (typeof ResizeObserver !== "undefined") {
+  new ResizeObserver(onWrapResize).observe(canvasWrap);
+} else {
+  window.addEventListener("resize", onWrapResize);
+}
+
+fitCanvas();
+
+function pressureOf(e) {
+  return e.pointerType === "pen" && e.pressure > 0 ? e.pressure : 1;
+}
+
+let pickCanvas = null, pickCtx = null;
+
+function pickColorAt(e) {
+  const [cx, cy] = toCanvas(e);
+  const x = Math.max(0, Math.min(state.w - 1, Math.round(cx)));
+  const y = Math.max(0, Math.min(state.h - 1, Math.round(cy)));
+  if (!pickCanvas) {
+    pickCanvas = document.createElement("canvas");
+    pickCtx = pickCanvas.getContext("2d", {
+      willReadFrequently: true
+    });
+  }
+  if (pickCanvas.width !== state.w || pickCanvas.height !== state.h) {
+    pickCanvas.width = state.w;
+    pickCanvas.height = state.h;
+  }
+  renderExportFrame(pickCtx, frameIdx, false);
+  const d = pickCtx.getImageData(x, y, 1, 1).data;
+  const hex = "#" + [ d[0], d[1], d[2] ].map(v => v.toString(16).padStart(2, "0")).join("");
+  setColor(hex, true);
+  showStatus("Picked " + hex.toUpperCase());
+}
+
+let fillCanvas = null, fillCtx = null;
+
+function bucketFillAt(e) {
+  const [cxf, cyf] = toCanvas(e);
+  const sx = Math.max(0, Math.min(state.w - 1, Math.round(cxf)));
+  const sy = Math.max(0, Math.min(state.h - 1, Math.round(cyf)));
+  if (!fillCanvas) {
+    fillCanvas = document.createElement("canvas");
+    fillCtx = fillCanvas.getContext("2d", {
+      willReadFrequently: true
+    });
+  }
+  if (fillCanvas.width !== state.w || fillCanvas.height !== state.h) {
+    fillCanvas.width = state.w;
+    fillCanvas.height = state.h;
+  }
+  renderExportFrame(fillCtx, frameIdx, false);
+  const img = fillCtx.getImageData(0, 0, state.w, state.h);
+  const d = img.data, W = state.w, H = state.h;
+  const si = (sy * W + sx) * 4;
+  const sr = d[si], sg = d[si + 1], sb = d[si + 2];
+  const tol = 48;
+  const mask = new Uint8Array(W * H);
+  const match = (x, y) => {
+    const i = (y * W + x) * 4;
+    return Math.abs(d[i] - sr) <= tol && Math.abs(d[i + 1] - sg) <= tol && Math.abs(d[i + 2] - sb) <= tol;
+  };
+  const stack = [ [ sx, sy ] ];
+  let count = 0;
+  while (stack.length) {
+    let [x, y] = stack.pop();
+    while (x >= 0 && match(x, y)) x--;
+    x++;
+    let up = false, dn = false;
+    while (x < W && match(x, y)) {
+      const m = y * W + x;
+      if (mask[m]) break;
+      mask[m] = 1;
+      count++;
+      if (y > 0) {
+        if (match(x, y - 1)) {
+          if (!up) {
+            stack.push([ x, y - 1 ]);
+            up = true;
+          }
+        } else up = false;
+      }
+      if (y < H - 1) {
+        if (match(x, y + 1)) {
+          if (!dn) {
+            stack.push([ x, y + 1 ]);
+            dn = true;
+          }
+        } else dn = false;
+      }
+      x++;
+    }
+  }
+  if (count < 9) {
+    showStatus("Nothing enclosed to fill there");
+    return;
+  }
+  if (count > W * H * .92) {
+    showStatus("That area isn't closed — draw a loop first");
+    return;
+  }
+  const grown = new Uint8Array(W * H);
+  for (let y = 0; y < H; y++) {
+    for (let x = 0; x < W; x++) {
+      if (!mask[y * W + x]) continue;
+      for (let dy = -2; dy <= 2; dy++) {
+        const yy = y + dy;
+        if (yy < 0 || yy >= H) continue;
+        for (let dx = -2; dx <= 2; dx++) {
+          const xx = x + dx;
+          if (xx < 0 || xx >= W) continue;
+          grown[yy * W + xx] = 1;
+        }
+      }
+    }
+  }
+  const mc = document.createElement("canvas");
+  mc.width = W;
+  mc.height = H;
+  const mctx = mc.getContext("2d");
+  const out = mctx.createImageData(W, H);
+  const od = out.data;
+  const cr = parseInt(color.slice(1, 3), 16), cg = parseInt(color.slice(3, 5), 16), cb = parseInt(color.slice(5, 7), 16);
+  for (let p = 0; p < W * H; p++) {
+    if (grown[p]) {
+      const o = p * 4;
+      od[o] = cr;
+      od[o + 1] = cg;
+      od[o + 2] = cb;
+      od[o + 3] = 255;
+    }
+  }
+  mctx.putImageData(out, 0, 0);
+  state.strokes.push({
+    id: strokeIdSeq++,
+    type: "fill",
+    color: color,
+    mask: mc.toDataURL("image/png"),
+    w: W,
+    h: H
+  });
+  commit();
+  layerDirty = true;
+  showStatus("Filled");
+}
+
+const touchInfo = new Map;
+
+let twoFingerTap = null, strokeStartT = 0;
+
+function trackTouchDown(e) {
+  if (e.pointerType !== "touch") return;
+  touchInfo.set(e.pointerId, {
+    x: e.clientX,
+    y: e.clientY,
+    t: performance.now(),
+    moved: false
+  });
+  if (touchInfo.size === 2) {
+    const [a, b] = [ ...touchInfo.values() ];
+    if (Math.abs(a.t - b.t) < 320 && !a.moved && !b.moved) {
+      twoFingerTap = {
+        t: performance.now()
+      };
+      if (current && performance.now() - strokeStartT < 400) {
+        try {
+          pad.releasePointerCapture(drawingPointer);
+        } catch (err) {}
+        drawingPointer = null;
+        current = null;
+        layerDirty = true;
+      }
+    }
+  } else if (touchInfo.size > 2) {
+    twoFingerTap = null;
+  }
+}
+
+function trackTouchMove(e) {
+  if (e.pointerType !== "touch") return;
+  const ti = touchInfo.get(e.pointerId);
+  if (ti && Math.hypot(e.clientX - ti.x, e.clientY - ti.y) > 18) {
+    ti.moved = true;
+    twoFingerTap = null;
+  }
+}
+
+function trackTouchUp(e) {
+  if (e.pointerType !== "touch") return;
+  touchInfo.delete(e.pointerId);
+  if (twoFingerTap && touchInfo.size === 0) {
+    if (performance.now() - twoFingerTap.t < 450) togglePalette(true);
+    twoFingerTap = null;
+  }
+}
+
+pad.addEventListener("pointerdown", e => {
+  trackTouchDown(e);
+  if (exporting) return;
+  if (tool === "dropper") {
+    pickColorAt(e);
+    e.preventDefault();
+    return;
+  }
+  if (tool === "bucket") {
+    bucketFillAt(e);
+    e.preventDefault();
+    return;
+  }
+  if (drawingPointer !== null) return;
+  drawingPointer = e.pointerId;
+  pad.setPointerCapture(e.pointerId);
+  strokeStartT = performance.now();
+  const [x, y] = toCanvas(e);
+  current = {
+    id: strokeIdSeq++,
+    color: color,
+    size: tool === "eraser" ? Math.max(size, 14) : size,
+    eraser: tool === "eraser",
+    pts: [ x, y, pressureOf(e) ]
+  };
+  layerDirty = true;
+  e.preventDefault();
+});
+
+pad.addEventListener("pointermove", e => {
+  trackTouchMove(e);
+  if (e.pointerId !== drawingPointer || !current) return;
+  const events = e.getCoalescedEvents ? e.getCoalescedEvents() : [ e ];
+  const pts = current.pts;
+  for (const ev of events) {
+    const [x, y] = toCanvas(ev);
+    const lx = pts[pts.length - 3], ly = pts[pts.length - 2];
+    if (Math.hypot(x - lx, y - ly) >= 2.5) pts.push(x, y, pressureOf(ev));
+  }
+  layerDirty = true;
+  e.preventDefault();
+});
+
+function endStroke(e) {
+  trackTouchUp(e);
+  if (e.pointerId !== drawingPointer) return;
+  drawingPointer = null;
+  if (current) {
+    state.strokes.push(current);
+    current = null;
+    commit();
+  }
+  layerDirty = true;
+}
+
+pad.addEventListener("pointerup", endStroke);
+
+pad.addEventListener("pointercancel", endStroke);
+
+pad.addEventListener("contextmenu", e => e.preventDefault());
+
+function strokesChanged() {
+  layerDirty = true;
+}
+
+function commit() {
+  history = history.slice(0, histPos + 1);
+  history.push(state.strokes.slice());
+  if (history.length > 100) history.shift();
+  histPos = history.length - 1;
+  updateUndoButtons();
+  strokesChanged();
+}
+
+function undo() {
+  if (histPos > 0) {
+    histPos--;
+    state.strokes = history[histPos].slice();
+    strokesChanged();
+    updateUndoButtons();
+  }
+}
+
+function redo() {
+  if (histPos < history.length - 1) {
+    histPos++;
+    state.strokes = history[histPos].slice();
+    strokesChanged();
+    updateUndoButtons();
+  }
+}
+
+function updateUndoButtons() {
+  document.getElementById("undoBtn").disabled = histPos === 0;
+  document.getElementById("redoBtn").disabled = histPos === history.length - 1;
+  const qu = document.getElementById("qUndo"), qr = document.getElementById("qRedo");
+  if (qu) qu.disabled = histPos === 0;
+  if (qr) qr.disabled = histPos === history.length - 1;
+}
+
+window.addEventListener("keydown", e => {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "z") {
+    e.preventDefault();
+    e.shiftKey ? redo() : undo();
+  }
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "y") {
+    e.preventDefault();
+    redo();
+  }
+});
+
+const CRAYONS = [ "#1a1a1a", "#e8472b", "#f57f17", "#ffd23f", "#3da548", "#2096a8", "#3461e0", "#7a3fc1", "#e864a8", "#8b5a2b", "#9aa3ad", "#ffffff" ];
+
+function luminance(hex) {
+  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+  return (.299 * r + .587 * g + .114 * b) / 255;
+}
+
+function buildSwatches(container) {
+  CRAYONS.forEach(cl => {
+    const b = document.createElement("button");
+    b.className = "swatch";
+    b.dataset.c = cl;
+    if (luminance(cl) > .62) b.dataset.light = "1";
+    b.style.background = cl;
+    b.title = cl;
+    b.addEventListener("click", () => setColor(cl));
+    container.appendChild(b);
+  });
+}
+
+buildSwatches(document.getElementById("swatches"));
+
+buildSwatches(document.getElementById("popSwatches"));
+
+function setColor(cl, revertToPen) {
+  color = cl;
+  document.getElementById("colorPick").value = cl;
+  document.getElementById("popColor").value = cl;
+  document.querySelectorAll(".swatch").forEach(s => s.classList.toggle("active", s.dataset.c === cl));
+  document.querySelectorAll(".qswatch").forEach(s => s.classList.toggle("active", s.dataset.c === cl));
+  if (revertToPen) setTool("pen");
+}
+
+const QUICK_CRAYONS = [ "#1a1a1a", "#e8472b", "#f57f17", "#ffd23f", "#3da548", "#3461e0", "#e864a8", "#ffffff" ];
+
+(function buildQuickSwatches() {
+  const box = document.getElementById("qSwatches");
+  if (!box) return;
+  QUICK_CRAYONS.forEach(cl => {
+    const b = document.createElement("button");
+    b.className = "qswatch";
+    b.dataset.c = cl;
+    b.style.background = cl;
+    b.title = cl;
+    b.addEventListener("click", () => setColor(cl));
+    box.appendChild(b);
+  });
+})();
+
+setColor(CRAYONS[0]);
+
+document.getElementById("colorPick").addEventListener("input", e => setColor(e.target.value));
+
+document.getElementById("popColor").addEventListener("input", e => setColor(e.target.value));
+
+document.getElementById("bgPick").addEventListener("input", e => {
+  state.bg = e.target.value;
+  composeDirty = true;
+});
+
+function setSize(v) {
+  size = v;
+  document.getElementById("sizeRange").value = v;
+  document.getElementById("popSize").value = v;
+}
+
+document.getElementById("sizeRange").addEventListener("input", e => setSize(+e.target.value));
+
+document.getElementById("popSize").addEventListener("input", e => setSize(+e.target.value));
+
+function setTool(t) {
+  tool = t;
+  document.getElementById("penBtn").classList.toggle("active", t === "pen");
+  document.getElementById("eraserBtn").classList.toggle("active", t === "eraser");
+  document.getElementById("bucketBtn").classList.toggle("active", t === "bucket");
+  document.getElementById("dropperBtn").classList.toggle("active", t === "dropper");
+  const qp = document.getElementById("qPen"), qe = document.getElementById("qEraser"), qb = document.getElementById("qBucket"), qd = document.getElementById("qDropper");
+  if (qp) qp.classList.toggle("active", t === "pen");
+  if (qe) qe.classList.toggle("active", t === "eraser");
+  if (qb) qb.classList.toggle("active", t === "bucket");
+  if (qd) qd.classList.toggle("active", t === "dropper");
+  document.body.classList.toggle("picking", t === "dropper");
+  document.body.classList.toggle("filling", t === "bucket");
+}
+
+document.getElementById("penBtn").addEventListener("click", () => setTool("pen"));
+
+document.getElementById("eraserBtn").addEventListener("click", () => setTool("eraser"));
+
+document.getElementById("bucketBtn").addEventListener("click", () => setTool("bucket"));
+
+document.getElementById("dropperBtn").addEventListener("click", () => setTool("dropper"));
+
+document.getElementById("undoBtn").addEventListener("click", undo);
+
+document.getElementById("redoBtn").addEventListener("click", redo);
+
+document.getElementById("qPen").addEventListener("click", () => setTool("pen"));
+
+document.getElementById("qEraser").addEventListener("click", () => setTool("eraser"));
+
+document.getElementById("qBucket").addEventListener("click", () => setTool("bucket"));
+
+document.getElementById("qDropper").addEventListener("click", () => setTool("dropper"));
+
+document.getElementById("qUndo").addEventListener("click", undo);
+
+document.getElementById("qRedo").addEventListener("click", redo);
+
+document.getElementById("qMore").addEventListener("click", () => togglePalette());
+
+document.getElementById("boilOn").addEventListener("change", e => {
+  state.boil.on = e.target.checked;
+  frameIdx = 0;
+  layerDirty = true;
+});
+
+document.getElementById("texOn").addEventListener("change", e => {
+  state.texture = e.target.checked;
+  layerDirty = true;
+});
+
+document.getElementById("transOn").addEventListener("change", e => {
+  state.transparent = e.target.checked;
+});
+
+document.getElementById("ampRange").addEventListener("input", e => {
+  state.boil.amp = +e.target.value;
+  layerDirty = true;
+});
+
+document.getElementById("fpsRange").addEventListener("input", e => {
+  state.boil.fps = +e.target.value;
+});
+
+document.getElementById("framesSel").addEventListener("change", e => {
+  state.boil.frames = +e.target.value;
+  frameIdx = 0;
+  layerDirty = true;
+});
+
+document.getElementById("sizeSel").addEventListener("change", e => {
+  const [w, h] = e.target.value.split("x").map(Number);
+  setCanvasSize(w, h);
+});
+
+function setCanvasSize(w, h) {
+  state.w = w;
+  state.h = h;
+  pad.width = w;
+  pad.height = h;
+  layer.width = w;
+  layer.height = h;
+  document.getElementById("canvasTitle").textContent = `untitled — ${w} × ${h}`;
+  const sel = document.getElementById("sizeSel");
+  const val = `${w}x${h}`;
+  if (![ ...sel.options ].some(o => o.value === val)) {
+    let c = document.getElementById("customSizeOpt");
+    if (!c) {
+      c = document.createElement("option");
+      c.id = "customSizeOpt";
+      sel.appendChild(c);
+    }
+    c.value = val;
+    c.textContent = `${w} × ${h}`;
+  }
+  sel.value = val;
+  fitCanvas();
+  layerDirty = true;
+}
+
+document.querySelectorAll(".menu").forEach(m => {
+  m.querySelector(".menulabel").addEventListener("click", e => {
+    const was = m.classList.contains("open");
+    document.querySelectorAll(".menu").forEach(x => x.classList.remove("open"));
+    if (!was) m.classList.add("open");
+    e.stopPropagation();
+  });
+});
+
+document.addEventListener("click", () => document.querySelectorAll(".menu").forEach(x => x.classList.remove("open")));
+
+document.querySelectorAll(".menuitem[data-cmd]").forEach(it => {
+  it.addEventListener("click", () => runCmd(it.dataset.cmd));
+});
+
+function runCmd(cmd) {
+  document.querySelectorAll(".menu").forEach(x => x.classList.remove("open"));
+  switch (cmd) {
+   case "about":
+    document.getElementById("aboutDlg").classList.add("show");
+    break;
+
+   case "new":
+    newDoodle(false);
+    break;
+
+   case "open":
+    document.getElementById("fileInput").click();
+    break;
+
+   case "save":
+    saveProject();
+    break;
+
+   case "png":
+    exportPNG();
+    break;
+
+   case "gif":
+    exportGIF();
+    break;
+
+   case "webm":
+    exportWebM();
+    break;
+
+   case "batch":
+    openBatchDialog();
+    break;
+
+   case "fullscreen":
+    toggleFullscreen();
+    break;
+
+   case "zen":
+    setZen(true);
+    break;
+  }
+}
+
+document.getElementById("aboutOk").addEventListener("click", () => document.getElementById("aboutDlg").classList.remove("show"));
+
+document.getElementById("closeBox").addEventListener("click", () => newDoodle(false));
+
+function fsElement() {
+  return document.fullscreenElement || document.webkitFullscreenElement || null;
+}
+
+function toggleFullscreen() {
+  const root = document.documentElement;
+  if (!fsElement()) {
+    const req = root.requestFullscreen ? root.requestFullscreen({
+      navigationUI: "hide"
+    }) : root.webkitRequestFullscreen ? root.webkitRequestFullscreen() : null;
+    if (!req) {
+      showStatus("Full screen is not available in this browser.");
+      return;
+    }
+    if (req.catch) req.catch(() => showStatus("Full screen was blocked — try the browser's own full-screen key (F11)."));
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen || function() {}).call(document);
+  }
+}
+
+function fsChanged() {
+  const on = !!fsElement();
+  document.body.classList.toggle("fullscreen", on);
+  document.getElementById("fsLabel").textContent = on ? "Exit Full Screen" : "Enter Full Screen";
+  document.getElementById("fsBtn").innerHTML = on ? icoSpan("fsexit") : icoSpan("fsenter");
+}
+
+document.addEventListener("fullscreenchange", fsChanged);
+
+document.addEventListener("webkitfullscreenchange", fsChanged);
+
+document.getElementById("fsBtn").addEventListener("click", toggleFullscreen);
+
+window.addEventListener("keydown", e => {
+  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
+    e.preventDefault();
+    toggleFullscreen();
+  }
+});
+
+function syncZenSize() {
+  const w = Math.max(320, Math.round(window.innerWidth));
+  const h = Math.max(240, Math.round(window.innerHeight));
+  if (w !== state.w || h !== state.h) setCanvasSize(w, h); else fitCanvas();
+}
+
+function setZen(on) {
+  if (on === zenOn || exporting) return;
+  zenOn = on;
+  document.body.classList.toggle("zen", on);
+  if (on) {
+    syncZenSize();
+    if (!fsElement() && document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen({
+        navigationUI: "hide"
+      }).then(() => {
+        zenTookFullscreen = true;
+      }).catch(() => {});
+    }
+    showStatus("Whole-screen paper — F leaves · P or two-finger tap for crayons");
+  } else {
+    if (zenTookFullscreen && fsElement()) {
+      (document.exitFullscreen || document.webkitExitFullscreen || function() {}).call(document);
+    }
+    zenTookFullscreen = false;
+    fitCanvas();
+  }
+}
+
+const palPop = document.getElementById("palPop");
+
+function togglePalette(force) {
+  const show = force !== undefined ? force : !palPop.classList.contains("show");
+  palPop.classList.toggle("show", show);
+  if (show) document.getElementById("popSize").value = size;
+}
+
+document.addEventListener("pointerdown", e => {
+  if (palPop.classList.contains("show") && !palPop.contains(e.target)) togglePalette(false);
+}, true);
+
+window.addEventListener("keydown", e => {
+  const t = e.target;
+  if (t && /^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName)) return;
+  if (e.ctrlKey || e.metaKey || e.altKey || e.shiftKey) return;
+  const k = e.key.toLowerCase();
+  if (k === "f") {
+    e.preventDefault();
+    togglePalette(false);
+    setZen(!zenOn);
+  } else if (k === "p") {
+    e.preventDefault();
+    togglePalette();
+  } else if (e.key === "Escape") {
+    if (palPop.classList.contains("show")) togglePalette(false); else if (zenOn) setZen(false);
+  }
+});
+
+const kioskParams = new URLSearchParams(location.search);
+
+const KIOSK = kioskParams.has("kiosk") && kioskParams.get("kiosk") !== "0";
+
+const IDLE_RESET_S = Math.max(0, parseInt(kioskParams.get("idle"), 10) || 0);
+
+let lastActivity = Date.now();
+
+if (KIOSK) {
+  document.body.classList.add("kiosk");
+  document.addEventListener("contextmenu", e => e.preventDefault());
+  document.addEventListener("dragstart", e => e.preventDefault());
+  window.addEventListener("beforeunload", e => {
+    if (state.strokes.length) {
+      e.preventDefault();
+      e.returnValue = "";
+    }
+  });
+  const firstTouch = () => {
+    if (!fsElement()) toggleFullscreen();
+    document.removeEventListener("pointerdown", firstTouch);
+  };
+  document.addEventListener("pointerdown", firstTouch);
+}
+
+[ "pointerdown", "pointermove", "keydown" ].forEach(ev => document.addEventListener(ev, () => {
+  lastActivity = Date.now();
+}, {
+  passive: true
+}));
+
+function kioskIdleCheck() {
+  if (!KIOSK || !IDLE_RESET_S || exporting) return;
+  if (Date.now() - lastActivity < IDLE_RESET_S * 1e3) return;
+  lastActivity = Date.now();
+  if (!state.strokes.length) return;
+  newDoodle(true);
+  showStatus("Fresh paper — draw something!");
+}
+
+function tickClock() {
+  const d = new Date;
+  let h = d.getHours();
+  const ap = h >= 12 ? "PM" : "AM";
+  h = h % 12 || 12;
+  document.getElementById("clock").textContent = `${h}:${String(d.getMinutes()).padStart(2, "0")} ${ap}`;
+}
+
+tickClock();
+
+setInterval(tickClock, 2e4);
+
+const statusEl = document.getElementById("status");
+
+let statusTimer = null;
+
+function showStatus(msg, sticky) {
+  statusEl.textContent = msg;
+  statusEl.style.display = "block";
+  clearTimeout(statusTimer);
+  if (!sticky) statusTimer = setTimeout(() => statusEl.style.display = "none", 2800);
+}
+
+function setBusy(b) {
+  exporting = b;
+  if (!b) {
+    layerDirty = true;
+  }
+}
+
+function download(blob, name) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = name;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 5e3);
+}
+
+function stamp() {
+  const d = new Date, p = n => String(n).padStart(2, "0");
+  return `${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}`;
+}
+
+function newDoodle(force) {
+  if (!force && state.strokes.length && !confirm("Start a new project? Unsaved scribbles will be lost.")) return;
+  state.strokes = [];
+  current = null;
+  history = [ [] ];
+  histPos = 0;
+  updateUndoButtons();
+  fillImgCache.clear();
+  layerDirty = true;
+}
+
+function saveProject() {
+  const data = {
+    app: "quickscrawl",
+    version: 3,
+    w: state.w,
+    h: state.h,
+    bg: state.bg,
+    boil: state.boil,
+    texture: state.texture,
+    transparent: state.transparent,
+    strokes: state.strokes
+  };
+  download(new Blob([ JSON.stringify(data) ], {
+    type: "application/json"
+  }), `quickscrawl-${stamp()}.json`);
+  showStatus("Project saved");
+}
+
+document.getElementById("fileInput").addEventListener("change", e => {
+  const f = e.target.files[0];
+  if (!f) return;
+  const r = new FileReader;
+  r.onload = () => {
+    try {
+      const d = JSON.parse(r.result);
+      if (!(d.app === "quickscrawl" || d.app === "wiggle-doodle") || !Array.isArray(d.strokes)) throw 0;
+      setCanvasSize(d.w || 800, d.h || 600);
+      document.getElementById("sizeSel").value = `${state.w}x${state.h}`;
+      state.bg = d.bg || "#ffffff";
+      document.getElementById("bgPick").value = state.bg;
+      state.boil = Object.assign({
+        on: true,
+        amp: 2,
+        frames: 3,
+        fps: 8
+      }, d.boil);
+      state.texture = d.texture !== false;
+      state.transparent = !!d.transparent;
+      document.getElementById("boilOn").checked = state.boil.on;
+      document.getElementById("texOn").checked = state.texture;
+      document.getElementById("transOn").checked = state.transparent;
+      document.getElementById("ampRange").value = state.boil.amp;
+      document.getElementById("fpsRange").value = state.boil.fps;
+      document.getElementById("framesSel").value = state.boil.frames;
+      state.strokes = d.strokes;
+      strokeIdSeq = state.strokes.reduce((m, s) => Math.max(m, s.id), 0) + 1;
+      fillImgCache.clear();
+      history = [ state.strokes.slice() ];
+      histPos = 0;
+      updateUndoButtons();
+      layerDirty = true;
+      showStatus("Project opened");
+    } catch {
+      showStatus("That file is not a QuickScrawl project.");
+    }
+  };
+  r.readAsText(f);
+  e.target.value = "";
+});
+
+function renderExportFrame(c2, frame, transparent) {
+  const keepCur = current;
+  current = null;
+  const savedFrame = frameIdx;
+  const amp = state.boil.on ? state.boil.amp : 0;
+  const tmpLayer = document.createElement("canvas");
+  tmpLayer.width = state.w;
+  tmpLayer.height = state.h;
+  const tl = tmpLayer.getContext("2d");
+  for (const s of state.strokes) drawStroke(tl, s, frame, amp);
+  tl.globalCompositeOperation = "source-over";
+  c2.clearRect(0, 0, state.w, state.h);
+  if (!transparent) {
+    c2.fillStyle = state.bg;
+    c2.fillRect(0, 0, state.w, state.h);
+  }
+  c2.drawImage(tmpLayer, 0, 0);
+  current = keepCur;
+  frameIdx = savedFrame;
+}
+
+async function exportPNG() {
+  await decodeFillMasks(state.strokes);
+  const c = document.createElement("canvas");
+  c.width = state.w;
+  c.height = state.h;
+  renderExportFrame(c.getContext("2d"), frameIdx, state.transparent);
+  c.toBlob(b => {
+    download(b, `quickscrawl-${stamp()}.png`);
+    showStatus(state.transparent ? "PNG saved (transparent)" : "PNG saved");
+  }, "image/png");
+}
+
+function encodeGIF(frames, width, height, delayCs, transparent) {
+  const ALPHA_T = 128;
+  const freq = new Map;
+  for (const d of frames) {
+    for (let i = 0; i < d.length; i += 4) {
+      if (transparent && d[i + 3] < ALPHA_T) continue;
+      const key = d[i] >> 3 << 10 | d[i + 1] >> 3 << 5 | d[i + 2] >> 3;
+      freq.set(key, (freq.get(key) || 0) + 1);
+    }
+  }
+  const reserve = transparent ? 1 : 0;
+  let keys = [ ...freq.entries() ].sort((a, b) => b[1] - a[1]).map(e => e[0]);
+  if (keys.length > 256 - reserve) keys = keys.slice(0, 256 - reserve);
+  const palette = [];
+  if (transparent) palette.push([ 0, 0, 0 ]);
+  for (const k of keys) {
+    const r5 = k >> 10 & 31, g5 = k >> 5 & 31, b5 = k & 31;
+    palette.push([ r5 << 3 | r5 >> 2, g5 << 3 | g5 >> 2, b5 << 3 | b5 >> 2 ]);
+  }
+  while (palette.length < 256) palette.push([ 0, 0, 0 ]);
+  const transIdx = 0;
+  const lookup = new Map;
+  keys.forEach((k, i) => lookup.set(k, i + reserve));
+  function indexFor(key) {
+    let idx = lookup.get(key);
+    if (idx !== undefined) return idx;
+    const r = (key >> 10 & 31) << 3, g = (key >> 5 & 31) << 3, b = (key & 31) << 3;
+    let best = reserve, bd = Infinity;
+    for (let i = reserve; i < keys.length + reserve; i++) {
+      const p = palette[i];
+      const dist = (p[0] - r) ** 2 + (p[1] - g) ** 2 + (p[2] - b) ** 2;
+      if (dist < bd) {
+        bd = dist;
+        best = i;
+      }
+    }
+    lookup.set(key, best);
+    return best;
+  }
+  const out = [];
+  const w8 = b => out.push(b & 255);
+  const w16 = v => {
+    out.push(v & 255, v >> 8 & 255);
+  };
+  const wStr = s => {
+    for (let i = 0; i < s.length; i++) out.push(s.charCodeAt(i));
+  };
+  wStr("GIF89a");
+  w16(width);
+  w16(height);
+  w8(247);
+  w8(0);
+  w8(0);
+  for (const p of palette) {
+    w8(p[0]);
+    w8(p[1]);
+    w8(p[2]);
+  }
+  w8(33);
+  w8(255);
+  w8(11);
+  wStr("NETSCAPE2.0");
+  w8(3);
+  w8(1);
+  w16(0);
+  w8(0);
+  for (const f of frames) {
+    const packed = transparent ? 9 : 4;
+    w8(33);
+    w8(249);
+    w8(4);
+    w8(packed);
+    w16(delayCs);
+    w8(transparent ? transIdx : 0);
+    w8(0);
+    w8(44);
+    w16(0);
+    w16(0);
+    w16(width);
+    w16(height);
+    w8(0);
+    const n = width * height;
+    const indices = new Uint8Array(n);
+    for (let i = 0, p = 0; i < n; i++, p += 4) {
+      if (transparent && f[p + 3] < ALPHA_T) {
+        indices[i] = transIdx;
+        continue;
+      }
+      indices[i] = indexFor(f[p] >> 3 << 10 | f[p + 1] >> 3 << 5 | f[p + 2] >> 3);
+    }
+    const minCodeSize = 8;
+    w8(minCodeSize);
+    const bytes = [];
+    let bitBuf = 0, bitCnt = 0;
+    const emit = (code, sz) => {
+      bitBuf |= code << bitCnt;
+      bitCnt += sz;
+      while (bitCnt >= 8) {
+        bytes.push(bitBuf & 255);
+        bitBuf >>= 8;
+        bitCnt -= 8;
+      }
+    };
+    const clearCode = 1 << minCodeSize, eoiCode = clearCode + 1;
+    let codeSize = minCodeSize + 1, table = new Map, nextCode = eoiCode + 1;
+    emit(clearCode, codeSize);
+    let prev = indices[0];
+    for (let i = 1; i < n; i++) {
+      const k = indices[i], key = prev << 8 | k;
+      const cur = table.get(key);
+      if (cur !== undefined) {
+        prev = cur;
+        continue;
+      }
+      emit(prev, codeSize);
+      if (nextCode === 4096) {
+        emit(clearCode, codeSize);
+        table = new Map;
+        nextCode = eoiCode + 1;
+        codeSize = minCodeSize + 1;
+      } else {
+        if (nextCode >= 1 << codeSize) codeSize++;
+        table.set(key, nextCode++);
+      }
+      prev = k;
+    }
+    emit(prev, codeSize);
+    emit(eoiCode, codeSize);
+    if (bitCnt > 0) bytes.push(bitBuf & 255);
+    for (let i = 0; i < bytes.length; i += 255) {
+      const end = Math.min(i + 255, bytes.length);
+      w8(end - i);
+      for (let j = i; j < end; j++) out.push(bytes[j]);
+    }
+    w8(0);
+  }
+  w8(59);
+  return new Uint8Array(out);
+}
+
+async function exportGIF() {
+  setBusy(true);
+  showStatus("Cooking up your GIF…", true);
+  await new Promise(r => setTimeout(r, 30));
+  try {
+    const trans = state.transparent;
+    await decodeFillMasks(state.strokes);
+    const c = document.createElement("canvas");
+    c.width = state.w;
+    c.height = state.h;
+    const cc = c.getContext("2d", {
+      willReadFrequently: true
+    });
+    const frames = [];
+    for (let f = 0; f < state.boil.frames; f++) {
+      renderExportFrame(cc, f, trans);
+      frames.push(cc.getImageData(0, 0, state.w, state.h).data);
+      await new Promise(r => setTimeout(r, 0));
+    }
+    const delay = Math.max(2, Math.round(100 / state.boil.fps));
+    const gif = encodeGIF(frames, state.w, state.h, delay, trans);
+    download(new Blob([ gif ], {
+      type: "image/gif"
+    }), `quickscrawl-${stamp()}.gif`);
+    showStatus(trans ? "GIF saved (transparent)" : "GIF saved");
+  } catch (err) {
+    console.error(err);
+    showStatus("GIF export hit a snag — try a smaller canvas.");
+  }
+  setBusy(false);
+}
+
+const batchState = {
+  files: [],
+  running: false
+};
+
+function normalizeProject(d) {
+  if (!d || !Array.isArray(d.strokes)) return null;
+  if (!(d.app === "quickscrawl" || d.app === "wiggle-doodle")) return null;
+  const boil = Object.assign({
+    on: true,
+    amp: 2,
+    frames: 3,
+    fps: 8
+  }, d.boil);
+  return {
+    w: d.w || 800,
+    h: d.h || 600,
+    bg: d.bg || "#ffffff",
+    transparent: !!d.transparent,
+    texture: d.texture !== false,
+    boil: boil,
+    strokes: d.strokes
+  };
+}
+
+function renderProjectFrame(proj, c2, frame) {
+  const amp = proj.boil.on ? proj.boil.amp : 0;
+  const tmp = document.createElement("canvas");
+  tmp.width = proj.w;
+  tmp.height = proj.h;
+  const tl = tmp.getContext("2d");
+  for (const s of proj.strokes) drawStroke(tl, s, frame, amp, proj.texture);
+  tl.globalCompositeOperation = "source-over";
+  c2.clearRect(0, 0, proj.w, proj.h);
+  if (!proj.transparent) {
+    c2.fillStyle = proj.bg;
+    c2.fillRect(0, 0, proj.w, proj.h);
+  }
+  c2.drawImage(tmp, 0, 0);
+}
+
+async function projectToGifBlob(proj) {
+  await decodeFillMasks(proj.strokes);
+  const c = document.createElement("canvas");
+  c.width = proj.w;
+  c.height = proj.h;
+  const cc = c.getContext("2d", {
+    willReadFrequently: true
+  });
+  const frames = [];
+  const nFrames = Math.max(1, proj.boil.frames);
+  for (let f = 0; f < nFrames; f++) {
+    renderProjectFrame(proj, cc, f);
+    frames.push(cc.getImageData(0, 0, proj.w, proj.h).data);
+    await new Promise(r => setTimeout(r, 0));
+  }
+  const delay = Math.max(2, Math.round(100 / proj.boil.fps));
+  const gif = encodeGIF(frames, proj.w, proj.h, delay, proj.transparent);
+  return new Blob([ gif ], {
+    type: "image/gif"
+  });
+}
+
+function readFileText(file) {
+  return new Promise((res, rej) => {
+    const r = new FileReader;
+    r.onload = () => res(r.result);
+    r.onerror = () => rej(new Error("read failed"));
+    r.readAsText(file);
+  });
+}
+
+function gifNameFor(file) {
+  return (file.name || "project").replace(/\.json$/i, "").replace(/[^\w.-]+/g, "_") + ".gif";
+}
+
+function openBatchDialog() {
+  batchState.files = [];
+  batchState.running = false;
+  document.getElementById("batchCount").textContent = "no files chosen";
+  const prog = document.getElementById("batchProgress");
+  prog.style.display = "none";
+  prog.textContent = "";
+  document.getElementById("batchRun").disabled = true;
+  document.getElementById("batchDlg").classList.add("show");
+}
+
+document.getElementById("batchPick").addEventListener("click", () => document.getElementById("batchInput").click());
+
+document.getElementById("batchInput").addEventListener("change", e => {
+  batchState.files = [ ...e.target.files ];
+  const n = batchState.files.length;
+  document.getElementById("batchCount").textContent = n ? `${n} file${n > 1 ? "s" : ""} chosen` : "no files chosen";
+  document.getElementById("batchRun").disabled = n === 0;
+  e.target.value = "";
+});
+
+document.getElementById("batchClose").addEventListener("click", () => {
+  if (batchState.running) return;
+  document.getElementById("batchDlg").classList.remove("show");
+});
+
+document.getElementById("batchRun").addEventListener("click", async () => {
+  if (batchState.running || !batchState.files.length) return;
+  batchState.running = true;
+  const runBtn = document.getElementById("batchRun");
+  const closeBtn = document.getElementById("batchClose");
+  const pickBtn = document.getElementById("batchPick");
+  runBtn.disabled = true;
+  closeBtn.disabled = true;
+  pickBtn.disabled = true;
+  const prog = document.getElementById("batchProgress");
+  prog.style.display = "block";
+  const log = [];
+  const setLog = () => {
+    prog.textContent = log.join("\n");
+    prog.scrollTop = prog.scrollHeight;
+  };
+  let ok = 0, fail = 0;
+  for (let i = 0; i < batchState.files.length; i++) {
+    const file = batchState.files[i];
+    log.push(`(${i + 1}/${batchState.files.length}) ${file.name} …`);
+    setLog();
+    await new Promise(r => setTimeout(r, 20));
+    try {
+      const text = await readFileText(file);
+      const proj = normalizeProject(JSON.parse(text));
+      if (!proj) throw new Error("not a QuickScrawl project");
+      if (!proj.strokes.length) {
+        log[log.length - 1] += " skipped (empty)";
+        setLog();
+        continue;
+      }
+      const blob = await projectToGifBlob(proj);
+      download(blob, gifNameFor(file));
+      log[log.length - 1] += " ✓";
+      ok++;
+      await new Promise(r => setTimeout(r, 350));
+    } catch (err) {
+      log[log.length - 1] += ` ✗ (${err.message})`;
+      fail++;
+    }
+    setLog();
+  }
+  log.push(`Done — ${ok} exported${fail ? `, ${fail} failed` : ""}.`);
+  setLog();
+  batchState.running = false;
+  runBtn.disabled = false;
+  closeBtn.disabled = false;
+  pickBtn.disabled = false;
+});
+
+function exportWebM() {
+  if (typeof MediaRecorder === "undefined") {
+    showStatus("This browser cannot record WebM.");
+    return;
+  }
+  let mime = "";
+  for (const m of [ "video/webm;codecs=vp9,opus", "video/webm;codecs=vp8,opus", "video/webm" ]) {
+    if (MediaRecorder.isTypeSupported(m)) {
+      mime = m;
+      break;
+    }
+  }
+  setBusy(true);
+  showStatus("Recording WebM… hold on", true);
+  const c = document.createElement("canvas");
+  c.width = state.w;
+  c.height = state.h;
+  const cc = c.getContext("2d");
+  renderExportFrame(cc, 0);
+  const stream = c.captureStream();
+  const rec = new MediaRecorder(stream, mime ? {
+    mimeType: mime,
+    videoBitsPerSecond: 6e6
+  } : undefined);
+  const chunks = [];
+  rec.ondataavailable = e => {
+    if (e.data.size) chunks.push(e.data);
+  };
+  rec.onstop = () => {
+    stream.getTracks().forEach(t => t.stop());
+    download(new Blob(chunks, {
+      type: "video/webm"
+    }), `quickscrawl-${stamp()}.webm`);
+    showStatus("WebM saved");
+    setBusy(false);
+  };
+  let f = 0;
+  const interval = setInterval(() => {
+    f = (f + 1) % state.boil.frames;
+    renderExportFrame(cc, f);
+  }, 1e3 / state.boil.fps);
+  const durationMs = Math.max(2e3, Math.round(4 * state.boil.frames / state.boil.fps * 1e3));
+  rec.start(200);
+  setTimeout(() => {
+    clearInterval(interval);
+    rec.stop();
+  }, durationMs);
+}
+
+updateUndoButtons();
+
+paintIcons();
+
+function autoOrientCanvas() {
+  if (window.innerWidth > 640) return;
+  if (state.strokes.length || zenOn) return;
+  const availW = window.innerWidth - 12;
+  const availH = window.innerHeight - 36 - 22 - 70 - 12;
+  const ratio = availH > 0 ? availW / availH : .72;
+  const longSide = 1e3;
+  let w, h;
+  if (ratio >= 1) {
+    w = longSide;
+    h = Math.round(longSide / ratio);
+  } else {
+    h = longSide;
+    w = Math.round(longSide * ratio);
+  }
+  w = Math.max(320, Math.min(1400, w));
+  h = Math.max(320, Math.min(1400, h));
+  if (state.w !== w || state.h !== h) setCanvasSize(w, h);
+}
+
+autoOrientCanvas();
+
+window.addEventListener("orientationchange", () => setTimeout(autoOrientCanvas, 250));
+
+rebuildLayer(0);
+
+compose(ctx, false);
+</script>
+</body>
+</html>
