@@ -516,6 +516,7 @@
       <span class="qspacer"></span>
       <div id="qSwatches" style="display:flex;gap:6px;"></div>
       <button id="qMore" title="More crayons &amp; size">•••</button>
+      <button id="qSettings" title="Animation &amp; export settings"><span class="ico" data-ico="gear"></span></button>
     </div>
   </div>
 
@@ -538,6 +539,29 @@
       <input type="color" id="popColor" value="#1a1a1a" title="Custom color">
       <span class="lab" style="width:auto;">Size</span>
       <input type="range" id="popSize" min="1" max="40" step="1" value="6">
+    </div>
+  </div>
+</div>
+
+<div class="palpop window" id="setPop">
+  <div class="titlebar"><span class="title">Settings</span></div>
+  <div class="winbody">
+    <div class="ctl"><span class="lab">Wiggle</span><input type="range" id="setAmp" min="0" max="6" step="0.5" value="2"></div>
+    <div class="ctl"><span class="lab">Speed</span><input type="range" id="setFps" min="2" max="15" step="1" value="8"></div>
+    <div class="ctl"><span class="lab">Frames</span>
+      <select id="setFrames"><option>2</option><option selected>3</option><option>4</option></select>
+    </div>
+    <label class="check"><input type="checkbox" id="setBoil" checked> Boil the lines</label>
+    <label class="check"><input type="checkbox" id="setTex" checked> Crayon texture</label>
+    <label class="check"><input type="checkbox" id="setTrans"> Transparent export</label>
+    <div class="ctl"><span class="lab">Canvas</span>
+      <select id="setSize">
+        <option value="640x480">640 × 480</option>
+        <option value="800x600" selected>800 × 600</option>
+        <option value="800x800">800 × 800</option>
+        <option value="1024x768">1024 × 768</option>
+        <option value="1280x720">1280 × 720</option>
+      </select>
     </div>
   </div>
 </div>
@@ -583,6 +607,7 @@ const ICONS = {
   eraser: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M3 9h8l3-3-4-4-8 8v3h3V9zm0 3H2v-1h1v1zm1-1h6l1-1H5l-1 1z"/></svg>',
   dropper: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M10 1h3v3h-1v1h-1v1h-1v1H9v1H8v1H7v1H6v1H5v1H4v1H2v1H1v-2h1v-1h1v-1h1v-1h1V8h1V7h1V6h1V5h1V4h-1V3h1V2h1V1zM4 12v1H3v-1h1z"/></svg>',
   bucket: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M6 2h1v1h1v1h1v1h1v1h1v1h-1v1h-1v1h-1v1H7v1H6v-1H5v-1H4V9H3V8H2V7h1V6h1V5h1V4h1V3H6V2zM5 7h1v1h2V7h1V6H8V5H7v1H6v1H5z"/><path fill="#000" d="M11 8h1v1h1v1h1v2h-1v1h-2v-1h-1v-2h1V9h-1V8h1zm0 3h1v-1h-1v1z"/></svg>',
+  gear: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M6 1h4v2h1v0l1-1 2 2-1 1h0v1h2v4h-2v1l1 1-2 2-1-1h-1v2H6v-2H5l-1 1-2-2 1-1V9H1V5h2V4L2 3l2-2 1 1h1V1zm0 5v4h4V6H6z"/></svg>',
   undo: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M5 3v2H4V4H3v1H2v1H1v1h1v1h1v1h1V8H3V7h7v1h1v2h1v1h1V9h-1V7h-1V6h-1V5H4z"/></svg>',
   redo: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><g transform="translate(16,0) scale(-1,1)"><path fill="#000" d="M5 3v2H4V4H3v1H2v1H1v1h1v1h1v1h1V8H3V7h7v1h1v2h1v1h1V9h-1V7h-1V6h-1V5H4z"/></g></svg>',
   crayon: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M7 1h2v1h1v1h1v2H5V3h1V2h1V1zM5 5h6v1H5V5zm0 2h6v1H5V7zm0 2h6v5H5V9z"/><path fill="#fff" d="M6 10h1v3H6v-3z"/></svg>',
@@ -1242,39 +1267,94 @@ document.getElementById("qUndo").addEventListener("click", undo);
 
 document.getElementById("qRedo").addEventListener("click", redo);
 
-document.getElementById("qMore").addEventListener("click", () => togglePalette());
+function syncSettingsUI() {
+  const set = (id, prop, val) => {
+    const el = document.getElementById(id);
+    if (el) el[prop] = val;
+  };
+  set("boilOn", "checked", state.boil.on);
+  set("setBoil", "checked", state.boil.on);
+  set("texOn", "checked", state.texture);
+  set("setTex", "checked", state.texture);
+  set("transOn", "checked", state.transparent);
+  set("setTrans", "checked", state.transparent);
+  set("ampRange", "value", state.boil.amp);
+  set("setAmp", "value", state.boil.amp);
+  set("fpsRange", "value", state.boil.fps);
+  set("setFps", "value", state.boil.fps);
+  set("framesSel", "value", state.boil.frames);
+  set("setFrames", "value", state.boil.frames);
+  const v = `${state.w}x${state.h}`;
+  set("sizeSel", "value", v);
+  set("setSize", "value", v);
+}
 
-document.getElementById("boilOn").addEventListener("change", e => {
-  state.boil.on = e.target.checked;
+function setBoilOn(v) {
+  state.boil.on = v;
   frameIdx = 0;
   layerDirty = true;
-});
+  syncSettingsUI();
+}
 
-document.getElementById("texOn").addEventListener("change", e => {
-  state.texture = e.target.checked;
+function setTexture(v) {
+  state.texture = v;
   layerDirty = true;
-});
+  syncSettingsUI();
+}
 
-document.getElementById("transOn").addEventListener("change", e => {
-  state.transparent = e.target.checked;
-});
+function setTransparent(v) {
+  state.transparent = v;
+  syncSettingsUI();
+}
 
-document.getElementById("ampRange").addEventListener("input", e => {
-  state.boil.amp = +e.target.value;
+function setAmp(v) {
+  state.boil.amp = +v;
   layerDirty = true;
-});
+  syncSettingsUI();
+}
 
-document.getElementById("fpsRange").addEventListener("input", e => {
-  state.boil.fps = +e.target.value;
-});
+function setFps(v) {
+  state.boil.fps = +v;
+  syncSettingsUI();
+}
 
-document.getElementById("framesSel").addEventListener("change", e => {
-  state.boil.frames = +e.target.value;
+function setFrames(v) {
+  state.boil.frames = +v;
   frameIdx = 0;
   layerDirty = true;
-});
+  syncSettingsUI();
+}
+
+document.getElementById("boilOn").addEventListener("change", e => setBoilOn(e.target.checked));
+
+document.getElementById("texOn").addEventListener("change", e => setTexture(e.target.checked));
+
+document.getElementById("transOn").addEventListener("change", e => setTransparent(e.target.checked));
+
+document.getElementById("ampRange").addEventListener("input", e => setAmp(e.target.value));
+
+document.getElementById("fpsRange").addEventListener("input", e => setFps(e.target.value));
+
+document.getElementById("framesSel").addEventListener("change", e => setFrames(e.target.value));
 
 document.getElementById("sizeSel").addEventListener("change", e => {
+  const [w, h] = e.target.value.split("x").map(Number);
+  setCanvasSize(w, h);
+});
+
+document.getElementById("setBoil").addEventListener("change", e => setBoilOn(e.target.checked));
+
+document.getElementById("setTex").addEventListener("change", e => setTexture(e.target.checked));
+
+document.getElementById("setTrans").addEventListener("change", e => setTransparent(e.target.checked));
+
+document.getElementById("setAmp").addEventListener("input", e => setAmp(e.target.value));
+
+document.getElementById("setFps").addEventListener("input", e => setFps(e.target.value));
+
+document.getElementById("setFrames").addEventListener("change", e => setFrames(e.target.value));
+
+document.getElementById("setSize").addEventListener("change", e => {
   const [w, h] = e.target.value.split("x").map(Number);
   setCanvasSize(w, h);
 });
@@ -1287,19 +1367,22 @@ function setCanvasSize(w, h) {
   layer.width = w;
   layer.height = h;
   document.getElementById("canvasTitle").textContent = `untitled — ${w} × ${h}`;
-  const sel = document.getElementById("sizeSel");
-  const val = `${w}x${h}`;
-  if (![ ...sel.options ].some(o => o.value === val)) {
-    let c = document.getElementById("customSizeOpt");
-    if (!c) {
-      c = document.createElement("option");
-      c.id = "customSizeOpt";
-      sel.appendChild(c);
+  for (const selId of [ "sizeSel", "setSize" ]) {
+    const sel = document.getElementById(selId);
+    if (!sel) continue;
+    const val = `${w}x${h}`;
+    if (![ ...sel.options ].some(o => o.value === val)) {
+      let c = sel.querySelector(".customSizeOpt");
+      if (!c) {
+        c = document.createElement("option");
+        c.className = "customSizeOpt";
+        sel.appendChild(c);
+      }
+      c.value = val;
+      c.textContent = `${w} × ${h}`;
     }
-    c.value = val;
-    c.textContent = `${w} × ${h}`;
+    sel.value = val;
   }
-  sel.value = val;
   fitCanvas();
   layerDirty = true;
 }
@@ -1439,14 +1522,31 @@ function setZen(on) {
 
 const palPop = document.getElementById("palPop");
 
+const setPop = document.getElementById("setPop");
+
 function togglePalette(force) {
   const show = force !== undefined ? force : !palPop.classList.contains("show");
+  if (show) setPop.classList.remove("show");
   palPop.classList.toggle("show", show);
   if (show) document.getElementById("popSize").value = size;
 }
 
+function toggleSettings(force) {
+  const show = force !== undefined ? force : !setPop.classList.contains("show");
+  if (show) {
+    palPop.classList.remove("show");
+    syncSettingsUI();
+  }
+  setPop.classList.toggle("show", show);
+}
+
+document.getElementById("qMore").addEventListener("click", () => togglePalette());
+
+document.getElementById("qSettings").addEventListener("click", () => toggleSettings());
+
 document.addEventListener("pointerdown", e => {
-  if (palPop.classList.contains("show") && !palPop.contains(e.target)) togglePalette(false);
+  if (palPop.classList.contains("show") && !palPop.contains(e.target) && !e.target.closest("#qMore")) togglePalette(false);
+  if (setPop.classList.contains("show") && !setPop.contains(e.target) && !e.target.closest("#qSettings")) toggleSettings(false);
 }, true);
 
 window.addEventListener("keydown", e => {
@@ -1457,12 +1557,13 @@ window.addEventListener("keydown", e => {
   if (k === "f") {
     e.preventDefault();
     togglePalette(false);
+    toggleSettings(false);
     setZen(!zenOn);
   } else if (k === "p") {
     e.preventDefault();
     togglePalette();
   } else if (e.key === "Escape") {
-    if (palPop.classList.contains("show")) togglePalette(false); else if (zenOn) setZen(false);
+    if (palPop.classList.contains("show")) togglePalette(false); else if (setPop.classList.contains("show")) toggleSettings(false); else if (zenOn) setZen(false);
   }
 });
 
@@ -1587,7 +1688,6 @@ document.getElementById("fileInput").addEventListener("change", e => {
       const d = JSON.parse(r.result);
       if (!(d.app === "quickscrawl" || d.app === "wiggle-doodle") || !Array.isArray(d.strokes)) throw 0;
       setCanvasSize(d.w || 800, d.h || 600);
-      document.getElementById("sizeSel").value = `${state.w}x${state.h}`;
       state.bg = d.bg || "#ffffff";
       document.getElementById("bgPick").value = state.bg;
       state.boil = Object.assign({
@@ -1598,12 +1698,7 @@ document.getElementById("fileInput").addEventListener("change", e => {
       }, d.boil);
       state.texture = d.texture !== false;
       state.transparent = !!d.transparent;
-      document.getElementById("boilOn").checked = state.boil.on;
-      document.getElementById("texOn").checked = state.texture;
-      document.getElementById("transOn").checked = state.transparent;
-      document.getElementById("ampRange").value = state.boil.amp;
-      document.getElementById("fpsRange").value = state.boil.fps;
-      document.getElementById("framesSel").value = state.boil.frames;
+      syncSettingsUI();
       state.strokes = d.strokes;
       strokeIdSeq = state.strokes.reduce((m, s) => Math.max(m, s.id), 0) + 1;
       fillImgCache.clear();
