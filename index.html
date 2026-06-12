@@ -343,22 +343,7 @@
     margin: 6px 4px 4px;
   }
 
-  @media (max-width: 920px) {
-    .desktop { flex-direction: column; align-items: stretch; gap: 10px; padding: 10px; }
-    .sidecol { width: 100%; flex-direction: row; flex-wrap: wrap; gap: 10px; }
-    .sidecol .window { flex: 1; min-width: 260px; }
-    .canvaswin { flex: 1; min-height: 56vh; order: 2; }
-    .sidecol { order: 1; }
-    .apptitle { display: none; }
-  }
-
-  @media (max-width: 920px) and (orientation: portrait) {
-    .canvaswin { min-height: 60vh; }
-    .sidecol { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .sidecol .window { min-width: 280px; flex: 0 0 auto; }
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 1024px), (orientation: portrait) {
     body { font-size: 15px; height: 100vh; height: 100dvh; overflow: hidden; }
     .menubar { height: 36px; padding: 0 2px; flex: none; }
     .menulabel { padding: 6px 8px; font-size: 15px; }
@@ -384,7 +369,7 @@
     .palpop.show { display: flex; }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 1024px), (orientation: portrait) {
     .quickbar {
       width: 100%; flex: none;
       align-items: center; gap: 6px;
@@ -393,8 +378,15 @@
       padding: 8px 6px; flex-wrap: nowrap; overflow-x: auto;
     }
     .quickbar .seg { flex: 0 0 auto; }
-    .quickbar button { min-height: 48px; min-width: 48px; flex: 0 0 auto; padding: 6px; }
-    .quickbar #qMore { font-size: 18px; letter-spacing: 1px; }
+    .quickbar button {
+      min-height: 54px; height: 54px; min-width: 50px; width: 50px;
+      flex: 0 0 auto; padding: 3px 2px;
+      display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+    }
+    .quickbar button .ico { width: 24px; height: 24px; flex: none; }
+    .quickbar button .tlab { font-size: 9px; line-height: 1; letter-spacing: .2px; }
+    .quickbar #qMore { font-size: 18px; letter-spacing: 1px; width: 50px; }
+    .quickbar #qSettings .ico { width: 22px; height: 22px; }
     .quickbar .qswatch {
       width: 40px; height: 40px; flex: 0 0 auto; padding: 0; min-height: 40px;
       border: 1px solid var(--ink); border-radius: 0;
@@ -507,16 +499,16 @@
     </div>
 
     <div class="quickbar" id="quickBar">
-      <button id="qPen" class="tool active" title="Crayon"><span class="ico" data-ico="pencil"></span></button>
-      <button id="qEraser" class="tool" title="Eraser"><span class="ico" data-ico="eraser"></span></button>
-      <button id="qBucket" class="tool" title="Fill"><span class="ico" data-ico="bucket"></span></button>
-      <button id="qDropper" class="tool" title="Pick color"><span class="ico" data-ico="dropper"></span></button>
-      <button id="qUndo" class="tool" title="Undo"><span class="ico" data-ico="undo"></span></button>
-      <button id="qRedo" class="tool" title="Redo"><span class="ico" data-ico="redo"></span></button>
+      <button id="qPen" class="tool active" title="Crayon"><span class="ico" data-ico="pencil"></span><span class="tlab">Crayon</span></button>
+      <button id="qEraser" class="tool" title="Eraser"><span class="ico" data-ico="eraser"></span><span class="tlab">Eraser</span></button>
+      <button id="qBucket" class="tool" title="Fill"><span class="ico" data-ico="bucket"></span><span class="tlab">Fill</span></button>
+      <button id="qDropper" class="tool" title="Pick color"><span class="ico" data-ico="dropper"></span><span class="tlab">Pick</span></button>
+      <button id="qUndo" class="tool" title="Undo"><span class="ico" data-ico="undo"></span><span class="tlab">Undo</span></button>
+      <button id="qRedo" class="tool" title="Redo"><span class="ico" data-ico="redo"></span><span class="tlab">Redo</span></button>
       <span class="qspacer"></span>
       <div id="qSwatches" style="display:flex;gap:6px;"></div>
-      <button id="qMore" title="More crayons &amp; size">•••</button>
-      <button id="qSettings" title="Animation &amp; export settings"><span class="ico" data-ico="gear"></span></button>
+      <button id="qMore" title="More crayons &amp; size"><span class="ico" data-ico="palette"></span><span class="tlab">Colors</span></button>
+      <button id="qSettings" title="Animation &amp; export settings"><span class="ico" data-ico="gear"></span><span class="tlab">Settings</span></button>
     </div>
   </div>
 
@@ -608,6 +600,7 @@ const ICONS = {
   dropper: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M10 1h3v3h-1v1h-1v1h-1v1H9v1H8v1H7v1H6v1H5v1H4v1H2v1H1v-2h1v-1h1v-1h1v-1h1V8h1V7h1V6h1V5h1V4h-1V3h1V2h1V1zM4 12v1H3v-1h1z"/></svg>',
   bucket: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M6 2h1v1h1v1h1v1h1v1h1v1h-1v1h-1v1h-1v1H7v1H6v-1H5v-1H4V9H3V8H2V7h1V6h1V5h1V4h1V3H6V2zM5 7h1v1h2V7h1V6H8V5H7v1H6v1H5z"/><path fill="#000" d="M11 8h1v1h1v1h1v2h-1v1h-2v-1h-1v-2h1V9h-1V8h1zm0 3h1v-1h-1v1z"/></svg>',
   gear: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M6 1h4v2h1v0l1-1 2 2-1 1h0v1h2v4h-2v1l1 1-2 2-1-1h-1v2H6v-2H5l-1 1-2-2 1-1V9H1V5h2V4L2 3l2-2 1 1h1V1zm0 5v4h4V6H6z"/></svg>',
+  palette: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M3 2h3v3H3V2zm4 0h3v3H7V2zm4 0h2v3h-2V2zM3 6h3v3H3V6zm4 0h3v3H7V6zm4 0h2v3h-2V6zM3 10h3v3H3v-3zm4 0h3v3H7v-3zm4 0h2v3h-2v-3z"/></svg>',
   undo: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M5 3v2H4V4H3v1H2v1H1v1h1v1h1v1h1V8H3V7h7v1h1v2h1v1h1V9h-1V7h-1V6h-1V5H4z"/></svg>',
   redo: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><g transform="translate(16,0) scale(-1,1)"><path fill="#000" d="M5 3v2H4V4H3v1H2v1H1v1h1v1h1v1h1V8H3V7h7v1h1v2h1v1h1V9h-1V7h-1V6h-1V5H4z"/></g></svg>',
   crayon: '<svg viewBox="0 0 16 16" shape-rendering="crispEdges"><path fill="#000" d="M7 1h2v1h1v1h1v2H5V3h1V2h1V1zM5 5h6v1H5V5zm0 2h6v1H5V7zm0 2h6v5H5V9z"/><path fill="#fff" d="M6 10h1v3H6v-3z"/></svg>',
@@ -630,7 +623,15 @@ const state = {
   w: 800,
   h: 600,
   bg: "#ffffff",
-  strokes: [],
+  frames: [ {
+    strokes: []
+  } ],
+  aniIndex: 0,
+  ani: {
+    fps: 6,
+    onion: true,
+    boilHeld: true
+  },
   boil: {
     on: true,
     amp: 2,
@@ -641,7 +642,40 @@ const state = {
   transparent: false
 };
 
+Object.defineProperty(state, "strokes", {
+  get() {
+    return state.frames[state.aniIndex].strokes;
+  },
+  set(v) {
+    state.frames[state.aniIndex].strokes = v;
+  }
+});
+
+function activeFrame() {
+  return state.frames[state.aniIndex];
+}
+
 let history = [ [] ], histPos = 0;
+
+let frameHistories = [];
+
+function stashActiveHistory() {
+  frameHistories[state.aniIndex] = {
+    history: history,
+    histPos: histPos
+  };
+}
+
+function loadFrameHistory(i) {
+  const h = frameHistories[i];
+  if (h) {
+    history = h.history;
+    histPos = h.histPos;
+  } else {
+    history = [ state.frames[i].strokes.slice() ];
+    histPos = 0;
+  }
+}
 
 let tool = "pen", color = "#1a1a1a", size = 6;
 
@@ -1121,6 +1155,15 @@ function commit() {
   strokesChanged();
 }
 
+function commitActiveHistory() {
+  frameHistories[state.aniIndex] = {
+    history: history,
+    histPos: histPos
+  };
+}
+
+function refreshFrameStrip() {}
+
 function undo() {
   if (histPos > 0) {
     histPos--;
@@ -1580,7 +1623,7 @@ if (KIOSK) {
   document.addEventListener("contextmenu", e => e.preventDefault());
   document.addEventListener("dragstart", e => e.preventDefault());
   window.addEventListener("beforeunload", e => {
-    if (state.strokes.length) {
+    if (hasAnyStrokes()) {
       e.preventDefault();
       e.returnValue = "";
     }
@@ -1602,7 +1645,7 @@ function kioskIdleCheck() {
   if (!KIOSK || !IDLE_RESET_S || exporting) return;
   if (Date.now() - lastActivity < IDLE_RESET_S * 1e3) return;
   lastActivity = Date.now();
-  if (!state.strokes.length) return;
+  if (!hasAnyStrokes()) return;
   newDoodle(true);
   showStatus("Fresh paper — draw something!");
 }
@@ -1651,27 +1694,39 @@ function stamp() {
 }
 
 function newDoodle(force) {
-  if (!force && state.strokes.length && !confirm("Start a new project? Unsaved scribbles will be lost.")) return;
-  state.strokes = [];
+  if (!force && hasAnyStrokes() && !confirm("Start a new project? Unsaved scribbles will be lost.")) return;
+  state.frames = [ {
+    strokes: []
+  } ];
+  state.aniIndex = 0;
   current = null;
+  frameHistories = [];
   history = [ [] ];
   histPos = 0;
   updateUndoButtons();
   fillImgCache.clear();
+  refreshFrameStrip();
   layerDirty = true;
 }
 
+function hasAnyStrokes() {
+  return state.frames.some(f => f.strokes.length);
+}
+
 function saveProject() {
+  commitActiveHistory();
   const data = {
     app: "quickscrawl",
-    version: 3,
+    version: 4,
     w: state.w,
     h: state.h,
     bg: state.bg,
     boil: state.boil,
+    ani: state.ani,
     texture: state.texture,
     transparent: state.transparent,
-    strokes: state.strokes
+    frames: state.frames,
+    strokes: state.frames[0].strokes
   };
   download(new Blob([ JSON.stringify(data) ], {
     type: "application/json"
@@ -1686,7 +1741,11 @@ document.getElementById("fileInput").addEventListener("change", e => {
   r.onload = () => {
     try {
       const d = JSON.parse(r.result);
-      if (!(d.app === "quickscrawl" || d.app === "wiggle-doodle") || !Array.isArray(d.strokes)) throw 0;
+      const okApp = d.app === "quickscrawl" || d.app === "wiggle-doodle";
+      const framesIn = Array.isArray(d.frames) ? d.frames : Array.isArray(d.strokes) ? [ {
+        strokes: d.strokes
+      } ] : null;
+      if (!okApp || !framesIn || !framesIn.length) throw 0;
       setCanvasSize(d.w || 800, d.h || 600);
       state.bg = d.bg || "#ffffff";
       document.getElementById("bgPick").value = state.bg;
@@ -1696,15 +1755,27 @@ document.getElementById("fileInput").addEventListener("change", e => {
         frames: 3,
         fps: 8
       }, d.boil);
+      state.ani = Object.assign({
+        fps: 6,
+        onion: true,
+        boilHeld: true
+      }, d.ani);
       state.texture = d.texture !== false;
       state.transparent = !!d.transparent;
       syncSettingsUI();
-      state.strokes = d.strokes;
-      strokeIdSeq = state.strokes.reduce((m, s) => Math.max(m, s.id), 0) + 1;
+      state.frames = framesIn.slice(0, 10).map(f => ({
+        strokes: Array.isArray(f.strokes) ? f.strokes : []
+      }));
+      state.aniIndex = 0;
+      let maxId = 0;
+      for (const f of state.frames) for (const s of f.strokes) if (s.id > maxId) maxId = s.id;
+      strokeIdSeq = maxId + 1;
       fillImgCache.clear();
+      frameHistories = [];
       history = [ state.strokes.slice() ];
       histPos = 0;
       updateUndoButtons();
+      refreshFrameStrip();
       layerDirty = true;
       showStatus("Project opened");
     } catch {
@@ -2125,8 +2196,10 @@ updateUndoButtons();
 
 paintIcons();
 
+const mobileUIQuery = window.matchMedia("(max-width: 1024px), (orientation: portrait)");
+
 function autoOrientCanvas() {
-  if (window.innerWidth > 640) return;
+  if (!mobileUIQuery.matches) return;
   if (state.strokes.length || zenOn) return;
   const availW = window.innerWidth - 12;
   const availH = window.innerHeight - 36 - 22 - 70 - 12;
@@ -2148,6 +2221,8 @@ function autoOrientCanvas() {
 autoOrientCanvas();
 
 window.addEventListener("orientationchange", () => setTimeout(autoOrientCanvas, 250));
+
+if (mobileUIQuery.addEventListener) mobileUIQuery.addEventListener("change", () => setTimeout(autoOrientCanvas, 100));
 
 rebuildLayer(0);
 
