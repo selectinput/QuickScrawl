@@ -4,6 +4,8 @@ A boiling-line oekaki toy. Draw things, have fun. Save `index.html` to run local
 
 Supports `.gif` and `.webm` exporting.
 
+Try it online - [https://selectinput.github.io/QuickScrawl/](https://selectinput.github.io/QuickScrawl/)
+
 ![QuickScrawl in action](examples/demo.gif)
 
 ## Examples
