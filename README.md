@@ -16,6 +16,10 @@ Try it online - [https://selectinput.github.io/QuickScrawl/](https://selectinput
 
 ![Scribble](examples/scribble.gif)
 
+## Generative AI Disclosure
+
+This project was created using generative AI for code creation.
+
 ## Credit & a note
 
 If you find this interesting, please check out John Earnest (aka Internet Janitor)'s [WigglyPaint](https://internet-janitor.itch.io/wigglypaint), which uses line-boil but has a ton of other great features (and is free!).
