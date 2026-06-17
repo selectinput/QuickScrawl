@@ -18,7 +18,7 @@ Try it online - [https://selectinput.github.io/QuickScrawl/](https://selectinput
 
 ## Generative AI Disclosure
 
-This project was created using generative AI for code creation.
+This project was developed using generative AI for code creation.
 
 ## Credit & a note
 
